@@ -1,9 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
+import { Star, Users, ThumbsUp, MessageSquare } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { TestimonialCard } from "@/components/TestimonialCard";
 import { SectionHeading } from "@/components/SectionHeading";
-import Link from "next/link";
 
 const allTestimonials = [
   {
@@ -92,6 +94,13 @@ const allTestimonials = [
   },
 ];
 
+const stats = [
+  { value: "5.0", label: "Google Rating", icon: <Star className="size-5" /> },
+  { value: "500+", label: "5-Star Reviews", icon: <MessageSquare className="size-5" /> },
+  { value: "98%", label: "Would Recommend", icon: <ThumbsUp className="size-5" /> },
+  { value: "5000+", label: "Happy Clients", icon: <Users className="size-5" /> },
+];
+
 export default function TestimonialsPage() {
   return (
     <>
@@ -113,7 +122,7 @@ export default function TestimonialsPage() {
             >
               What Our Clients Say
             </h1>
-            <p className="text-xl text-slate-600">
+            <p className="text-xl text-muted-foreground">
               Don&apos;t just take our word for it. Here&apos;s what our clients have to
               say about their Cryospa experience.
             </p>
@@ -125,12 +134,7 @@ export default function TestimonialsPage() {
       <section className="py-12 bg-white border-b border-slate-100">
         <div className="container-custom">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-            {[
-              { value: "5.0", label: "Google Rating" },
-              { value: "500+", label: "5-Star Reviews" },
-              { value: "98%", label: "Would Recommend" },
-              { value: "5000+", label: "Happy Clients" },
-            ].map((stat, index) => (
+            {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 20 }}
@@ -139,10 +143,13 @@ export default function TestimonialsPage() {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 className="text-center"
               >
+                <div className="size-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3 text-primary">
+                  {stat.icon}
+                </div>
                 <div className="text-3xl md:text-4xl font-bold text-primary mb-1">
                   {stat.value}
                 </div>
-                <div className="text-sm text-slate-500">{stat.label}</div>
+                <div className="text-sm text-muted-foreground">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -176,18 +183,19 @@ export default function TestimonialsPage() {
             >
               Ready to Experience Cryospa?
             </h2>
-            <p className="text-white/80 text-lg mb-8">
+            <p className="text-white/90 text-lg mb-8">
               Join thousands of satisfied clients and discover the difference
               for yourself.
             </p>
-            <Link
-              href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-accent text-lg px-8 py-4"
-            >
-              Book Your First Visit
-            </Link>
+            <Button asChild variant="accent" size="xl">
+              <Link
+                href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Book Your First Visit
+              </Link>
+            </Button>
           </motion.div>
         </div>
       </section>

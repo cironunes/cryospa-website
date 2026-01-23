@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { BlogCard } from "@/components/BlogCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { NewsletterForm } from "@/components/NewsletterForm";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const blogPosts = [
   {
@@ -80,9 +83,15 @@ const blogPosts = [
   },
 ];
 
-const categories = ["All", "Wellness Tips", "Treatment Guide", "Health Benefits", "News"];
+const categories = ["All", "Wellness Tips", "Treatment Guide", "Health Benefits"];
 
 export default function BlogPage() {
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const filteredPosts = activeCategory === "All"
+    ? blogPosts
+    : blogPosts.filter(post => post.category === activeCategory);
+
   return (
     <>
       {/* Hero Section */}
@@ -103,7 +112,7 @@ export default function BlogPage() {
             >
               Wellness Insights & Tips
             </h1>
-            <p className="text-xl text-slate-600">
+            <p className="text-xl text-muted-foreground">
               Explore our collection of articles on wellness, recovery, and
               self-care. Stay informed and inspired on your wellness journey.
             </p>
@@ -116,16 +125,18 @@ export default function BlogPage() {
         <div className="container-custom">
           <div className="flex flex-wrap justify-center gap-2">
             {categories.map((category) => (
-              <button
+              <Button
                 key={category}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  category === "All"
-                    ? "bg-primary text-white"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                }`}
+                variant={category === activeCategory ? "default" : "secondary"}
+                size="sm"
+                onClick={() => setActiveCategory(category)}
+                className={cn(
+                  "rounded-full",
+                  category === activeCategory && "shadow-md"
+                )}
               >
                 {category}
-              </button>
+              </Button>
             ))}
           </div>
         </div>
@@ -135,14 +146,14 @@ export default function BlogPage() {
       <section className="section bg-white">
         <div className="container-custom">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogPosts.map((post, index) => (
+            {filteredPosts.map((post, index) => (
               <BlogCard key={post.slug} {...post} index={index} />
             ))}
           </div>
 
           {/* Load More */}
           <div className="text-center mt-12">
-            <button className="btn btn-secondary">Load More Articles</button>
+            <Button variant="outline">Load More Articles</Button>
           </div>
         </div>
       </section>

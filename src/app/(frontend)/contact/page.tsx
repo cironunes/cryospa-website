@@ -2,6 +2,20 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { MapPin, Phone, Mail, Clock, CheckCircle, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Card, CardContent } from "@/components/ui/card";
+import { toast } from "@/hooks/use-toast";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -21,6 +35,12 @@ export default function ContactPage() {
     await new Promise((resolve) => setTimeout(resolve, 1500));
     setStatus("success");
     setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    
+    toast({
+      title: "Message sent!",
+      description: "Thank you for reaching out. We'll get back to you within 24 hours.",
+      variant: "success",
+    });
   };
 
   return (
@@ -43,7 +63,7 @@ export default function ContactPage() {
             >
               Contact Us
             </h1>
-            <p className="text-xl text-slate-600">
+            <p className="text-xl text-muted-foreground">
               Have a question or ready to book? We&apos;d love to hear from you.
               Reach out and our friendly team will get back to you shortly.
             </p>
@@ -67,72 +87,76 @@ export default function ContactPage() {
               </h2>
 
               <div className="space-y-6 mb-10">
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-slate-800 mb-1">Address</h3>
-                    <p className="text-slate-600">
-                      21 Falcon St, Crows Nest<br />
-                      NSW 2065, Australia
-                    </p>
-                  </div>
-                </div>
+                <Card className="border-slate-100">
+                  <CardContent className="flex gap-4 p-4">
+                    <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                      <MapPin className="size-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-slate-800 mb-1">Address</h3>
+                      <p className="text-muted-foreground">
+                        21 Falcon St, Crows Nest<br />
+                        NSW 2065, Australia
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
 
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-slate-800 mb-1">Phone</h3>
-                    <a href="tel:0289647951" className="text-primary hover:underline">
-                      02 8964 7951
-                    </a>
-                  </div>
-                </div>
+                <Card className="border-slate-100">
+                  <CardContent className="flex gap-4 p-4">
+                    <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                      <Phone className="size-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-slate-800 mb-1">Phone</h3>
+                      <a href="tel:0289647951" className="text-primary hover:underline">
+                        02 8964 7951
+                      </a>
+                    </div>
+                  </CardContent>
+                </Card>
 
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-slate-800 mb-1">Email</h3>
-                    <a href="mailto:info@cryospaclinics.com" className="text-primary hover:underline">
-                      info@cryospaclinics.com
-                    </a>
-                  </div>
-                </div>
+                <Card className="border-slate-100">
+                  <CardContent className="flex gap-4 p-4">
+                    <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                      <Mail className="size-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-slate-800 mb-1">Email</h3>
+                      <a href="mailto:info@cryospaclinics.com" className="text-primary hover:underline">
+                        info@cryospaclinics.com
+                      </a>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
 
               {/* Opening Hours */}
-              <div className="p-6 bg-slate-50 rounded-2xl mb-10">
-                <h3 className="font-semibold text-slate-800 mb-4">Opening Hours</h3>
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span className="text-slate-600">Monday - Friday</span>
-                    <span className="text-slate-800 font-medium">9am – 1pm / 4pm – 8:30pm</span>
+              <Card className="bg-slate-50 border-0">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Clock className="size-5 text-primary" />
+                    <h3 className="font-semibold text-slate-800">Opening Hours</h3>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-600">Saturday</span>
-                    <span className="text-slate-800 font-medium">8am – 6pm</span>
+                  <div className="space-y-2">
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Monday - Friday</span>
+                      <span className="text-slate-800 font-medium">9am – 1pm / 4pm – 8:30pm</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Saturday</span>
+                      <span className="text-slate-800 font-medium">8am – 6pm</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Sunday</span>
+                      <span className="text-slate-800 font-medium">8am – 6pm</span>
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-600">Sunday</span>
-                    <span className="text-slate-800 font-medium">8am – 6pm</span>
-                  </div>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
 
-              {/* Map Placeholder */}
-              <div className="aspect-video rounded-2xl overflow-hidden bg-slate-200">
+              {/* Map */}
+              <div className="mt-10 aspect-video rounded-2xl overflow-hidden bg-slate-200">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3314.5!2d151.2!3d-33.83!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDQ5JzQ4LjAiUyAxNTHCsDEyJzAwLjAiRQ!5e0!3m2!1sen!2sau!4v1234567890"
                   width="100%"
@@ -153,137 +177,123 @@ export default function ContactPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <div className="bg-slate-50 rounded-2xl p-8">
-                <h2 className="text-2xl font-semibold text-slate-800 mb-6">
-                  Send Us a Message
-                </h2>
+              <Card className="bg-slate-50 border-0">
+                <CardContent className="p-8">
+                  <h2 className="text-2xl font-semibold text-slate-800 mb-6">
+                    Send Us a Message
+                  </h2>
 
-                {status === "success" ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-12"
-                  >
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                      <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <h3 className="text-xl font-semibold text-slate-800 mb-2">
-                      Message Sent!
-                    </h3>
-                    <p className="text-slate-600 mb-6">
-                      Thank you for reaching out. We&apos;ll get back to you within 24 hours.
-                    </p>
-                    <button
-                      onClick={() => setStatus("idle")}
-                      className="btn btn-secondary"
+                  {status === "success" ? (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="text-center py-12"
                     >
-                      Send Another Message
-                    </button>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
-                          Name *
-                        </label>
-                        <input
-                          type="text"
-                          id="name"
+                      <div className="size-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+                        <CheckCircle className="size-8 text-primary" />
+                      </div>
+                      <h3 className="text-xl font-semibold text-slate-800 mb-2">
+                        Message Sent!
+                      </h3>
+                      <p className="text-muted-foreground mb-6">
+                        Thank you for reaching out. We&apos;ll get back to you within 24 hours.
+                      </p>
+                      <Button
+                        variant="outline"
+                        onClick={() => setStatus("idle")}
+                      >
+                        Send Another Message
+                      </Button>
+                    </motion.div>
+                  ) : (
+                    <form onSubmit={handleSubmit} className="space-y-5">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div className="space-y-2">
+                          <Label htmlFor="name">Name *</Label>
+                          <Input
+                            type="text"
+                            id="name"
+                            required
+                            value={formData.name}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            placeholder="Your name"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="email">Email *</Label>
+                          <Input
+                            type="email"
+                            id="email"
+                            required
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            placeholder="your@email.com"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div className="space-y-2">
+                          <Label htmlFor="phone">Phone</Label>
+                          <Input
+                            type="tel"
+                            id="phone"
+                            value={formData.phone}
+                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                            placeholder="04XX XXX XXX"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="subject">Subject</Label>
+                          <Select
+                            value={formData.subject}
+                            onValueChange={(value) => setFormData({ ...formData, subject: value })}
+                          >
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select a topic" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="booking">Booking Enquiry</SelectItem>
+                              <SelectItem value="services">Services Question</SelectItem>
+                              <SelectItem value="pricing">Pricing Information</SelectItem>
+                              <SelectItem value="corporate">Corporate Enquiry</SelectItem>
+                              <SelectItem value="other">Other</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="message">Message *</Label>
+                        <Textarea
+                          id="message"
                           required
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                          placeholder="Your name"
+                          rows={5}
+                          value={formData.message}
+                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                          placeholder="How can we help you?"
                         />
                       </div>
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
-                          Email *
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          required
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                          placeholder="your@email.com"
-                        />
-                      </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <div>
-                        <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">
-                          Phone
-                        </label>
-                        <input
-                          type="tel"
-                          id="phone"
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                          placeholder="04XX XXX XXX"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="subject" className="block text-sm font-medium text-slate-700 mb-2">
-                          Subject
-                        </label>
-                        <select
-                          id="subject"
-                          value={formData.subject}
-                          onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                        >
-                          <option value="">Select a topic</option>
-                          <option value="booking">Booking Enquiry</option>
-                          <option value="services">Services Question</option>
-                          <option value="pricing">Pricing Information</option>
-                          <option value="corporate">Corporate Enquiry</option>
-                          <option value="other">Other</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
-                        Message *
-                      </label>
-                      <textarea
-                        id="message"
-                        required
-                        rows={5}
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none"
-                        placeholder="How can we help you?"
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={status === "loading"}
-                      className="btn btn-primary w-full disabled:opacity-70 disabled:cursor-not-allowed"
-                    >
-                      {status === "loading" ? (
-                        <span className="flex items-center justify-center gap-2">
-                          <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                          </svg>
-                          Sending...
-                        </span>
-                      ) : (
-                        "Send Message"
-                      )}
-                    </button>
-                  </form>
-                )}
-              </div>
+                      <Button
+                        type="submit"
+                        disabled={status === "loading"}
+                        className="w-full"
+                        size="lg"
+                      >
+                        {status === "loading" ? (
+                          <>
+                            <Loader2 className="size-4 animate-spin" />
+                            Sending...
+                          </>
+                        ) : (
+                          "Send Message"
+                        )}
+                      </Button>
+                    </form>
+                  )}
+                </CardContent>
+              </Card>
             </motion.div>
           </div>
         </div>

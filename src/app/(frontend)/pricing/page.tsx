@@ -1,8 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { Check, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { SectionHeading } from "@/components/SectionHeading";
+import { cn } from "@/lib/utils";
 
 const pricingCategories = [
   {
@@ -104,7 +109,7 @@ export default function PricingPage() {
             >
               Simple, Transparent Pricing
             </h1>
-            <p className="text-xl text-slate-600">
+            <p className="text-xl text-muted-foreground">
               Choose from individual treatments or save with our value packs and
               packages. All prices are in AUD.
             </p>
@@ -128,65 +133,75 @@ export default function PricingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`relative rounded-2xl p-6 lg:p-8 ${
-                  pkg.popular
-                    ? "bg-gradient-to-br from-primary to-primary-dark text-white shadow-xl scale-105"
-                    : "bg-slate-50"
-                }`}
               >
-                {pkg.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <span className="px-4 py-1 bg-accent text-white text-xs font-semibold rounded-full">
-                      Most Popular
-                    </span>
-                  </div>
-                )}
+                <Card className={cn(
+                  "relative h-full py-0",
+                  pkg.popular
+                    ? "bg-gradient-to-br from-primary to-primary-dark text-white border-0 shadow-xl scale-105"
+                    : "bg-slate-50 border-0"
+                )}>
+                  {pkg.popular && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                      <Badge variant="accent" className="shadow-lg">
+                        Most Popular
+                      </Badge>
+                    </div>
+                  )}
 
-                <div className="text-center mb-6">
-                  <h3 className={`text-xl font-semibold mb-2 ${pkg.popular ? "text-white" : "text-slate-800"}`}>
-                    {pkg.name}
-                  </h3>
-                  <p className={`text-sm ${pkg.popular ? "text-white/80" : "text-slate-600"}`}>
-                    {pkg.description}
-                  </p>
-                </div>
+                  <CardHeader className="text-center pt-8 pb-2">
+                    <CardTitle className={cn(
+                      "text-xl mb-2",
+                      pkg.popular ? "text-white" : "text-slate-800"
+                    )}>
+                      {pkg.name}
+                    </CardTitle>
+                    <p className={cn(
+                      "text-sm",
+                      pkg.popular ? "text-white/80" : "text-muted-foreground"
+                    )}>
+                      {pkg.description}
+                    </p>
+                  </CardHeader>
 
-                <div className="text-center mb-6">
-                  <span className={`text-4xl font-bold ${pkg.popular ? "text-white" : "text-primary"}`}>
-                    ${pkg.price}
-                  </span>
-                </div>
-
-                <ul className="space-y-3 mb-8">
-                  {pkg.includes.map((item) => (
-                    <li key={item} className="flex items-center gap-3">
-                      <svg
-                        className={`w-5 h-5 flex-shrink-0 ${pkg.popular ? "text-accent" : "text-primary"}`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className={pkg.popular ? "text-white/90" : "text-slate-600"}>
-                        {item}
+                  <CardContent className="pt-4 pb-8">
+                    <div className="text-center mb-6">
+                      <span className={cn(
+                        "text-4xl font-bold",
+                        pkg.popular ? "text-white" : "text-primary"
+                      )}>
+                        ${pkg.price}
                       </span>
-                    </li>
-                  ))}
-                </ul>
+                    </div>
 
-                <Link
-                  href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`btn w-full ${
-                    pkg.popular
-                      ? "bg-white text-primary hover:bg-white/90"
-                      : "btn-primary"
-                  }`}
-                >
-                  Book Now
-                </Link>
+                    <ul className="space-y-3 mb-8">
+                      {pkg.includes.map((item) => (
+                        <li key={item} className="flex items-center gap-3">
+                          <Check className={cn(
+                            "size-5 flex-shrink-0",
+                            pkg.popular ? "text-accent" : "text-primary"
+                          )} />
+                          <span className={pkg.popular ? "text-white/90" : "text-muted-foreground"}>
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <Button
+                      asChild
+                      className="w-full"
+                      variant={pkg.popular ? "secondary" : "default"}
+                    >
+                      <Link
+                        href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Book Now
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </div>
@@ -209,33 +224,36 @@ export default function PricingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-2xl p-6 shadow-sm"
               >
-                <h3 className="text-lg font-semibold text-slate-800 mb-4 pb-4 border-b border-slate-100">
-                  {category.title}
-                </h3>
-                <div className="space-y-3">
-                  {category.services.map((service) => (
-                    <div key={service.name} className="flex items-center justify-between">
-                      <div>
-                        <span className="text-slate-700">{service.name}</span>
-                        {service.duration && (
-                          <span className="text-xs text-slate-400 ml-2">
-                            ({service.duration})
-                          </span>
-                        )}
-                        {service.note && (
-                          <span className="block text-xs text-primary">
-                            {service.note}
-                          </span>
-                        )}
+                <Card className="h-full border-0 shadow-sm">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-lg border-b pb-4">
+                      {category.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    {category.services.map((service) => (
+                      <div key={`${service.name}-${service.price}`} className="flex items-center justify-between">
+                        <div>
+                          <span className="text-slate-700">{service.name}</span>
+                          {service.duration && (
+                            <span className="text-xs text-muted-foreground ml-2">
+                              ({service.duration})
+                            </span>
+                          )}
+                          {service.note && (
+                            <span className="block text-xs text-primary font-medium">
+                              {service.note}
+                            </span>
+                          )}
+                        </div>
+                        <span className="font-semibold text-slate-800">
+                          ${service.price}
+                        </span>
                       </div>
-                      <span className="font-semibold text-slate-800">
-                        ${service.price}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </div>
@@ -258,22 +276,26 @@ export default function PricingPage() {
             >
               Ready to Book?
             </h2>
-            <p className="text-lg text-slate-600 mb-8">
+            <p className="text-lg text-muted-foreground mb-8">
               All treatments can be booked online. First time? Contact us for a
               complimentary consultation to find the best treatment for you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary"
-              >
-                Book Online
-              </Link>
-              <Link href="/contact" className="btn btn-secondary">
-                Contact Us
-              </Link>
+              <Button asChild size="lg">
+                <Link
+                  href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Book Online
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <Link href="/contact">
+                  Contact Us
+                  <ArrowRight className="size-4" />
+                </Link>
+              </Button>
             </div>
           </motion.div>
         </div>

@@ -1,10 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { ServiceCard } from "@/components/ServiceCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { getServiceIcon } from "@/components/Icons";
-import Link from "next/link";
 
 const allServices = [
   {
@@ -99,8 +101,6 @@ const allServices = [
   },
 ];
 
-const categories = ["All", "Recovery", "Relaxation", "Respiratory", "Skin & Recovery", "Massage", "Skin"];
-
 export default function ServicesPage() {
   return (
     <>
@@ -122,7 +122,7 @@ export default function ServicesPage() {
             >
               Premium Wellness Treatments
             </h1>
-            <p className="text-xl text-slate-600">
+            <p className="text-xl text-muted-foreground">
               Discover our range of cutting-edge wellness treatments designed to
               help you feel your best. Each service is delivered in private,
               dedicated treatment rooms by our expert team.
@@ -163,17 +163,22 @@ export default function ServicesPage() {
             >
               Not Sure Which Treatment is Right for You?
             </h2>
-            <p className="text-lg text-slate-600 mb-8">
+            <p className="text-lg text-muted-foreground mb-8">
               Our team is here to help you find the perfect treatment for your
               needs. Contact us for a complimentary consultation.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="btn btn-primary">
-                Get in Touch
-              </Link>
-              <Link href="/pricing" className="btn btn-secondary">
-                View Pricing
-              </Link>
+              <Button asChild size="lg">
+                <Link href="/contact">
+                  Get in Touch
+                  <ArrowRight className="size-4" />
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <Link href="/pricing">
+                  View Pricing
+                </Link>
+              </Button>
             </div>
           </motion.div>
         </div>

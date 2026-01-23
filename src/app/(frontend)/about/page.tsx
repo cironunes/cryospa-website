@@ -1,49 +1,36 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { SectionHeading } from "@/components/SectionHeading";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { Award, Lock, FlaskConical, Heart, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { SectionHeading } from "@/components/SectionHeading";
 
 const values = [
   {
     title: "Excellence",
     description:
       "We use only the highest quality equipment and products to ensure every treatment delivers exceptional results.",
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-      </svg>
-    ),
+    icon: <Award className="size-8" />,
   },
   {
     title: "Privacy",
     description:
       "Every treatment room is private, giving you the space and comfort to fully enjoy your wellness experience.",
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-      </svg>
-    ),
+    icon: <Lock className="size-8" />,
   },
   {
     title: "Expertise",
     description:
       "Our trained wellness professionals guide you through each treatment, ensuring safety and optimal results.",
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-      </svg>
-    ),
+    icon: <FlaskConical className="size-8" />,
   },
   {
     title: "Community",
     description:
       "We're proud to be part of the Crows Nest community, serving locals and visitors with care and dedication.",
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-      </svg>
-    ),
+    icon: <Heart className="size-8" />,
   },
 ];
 
@@ -91,7 +78,7 @@ export default function AboutPage() {
             >
               About Cryospa Clinics
             </h1>
-            <p className="text-xl text-slate-600">
+            <p className="text-xl text-muted-foreground">
               Sydney&apos;s most complete destination to reboot, revitalise, and
               re-energise your mind, body, and soul.
             </p>
@@ -115,7 +102,7 @@ export default function AboutPage() {
               >
                 Our Mission
               </h2>
-              <div className="space-y-4 text-slate-600">
+              <div className="space-y-4 text-muted-foreground">
                 <p>
                   Situated in Sydney&apos;s lower North Shore, Cryospa Clinics is a
                   specialised Health & Wellness Centre designed to revitalise,
@@ -143,18 +130,16 @@ export default function AboutPage() {
               transition={{ duration: 0.6 }}
               className="relative"
             >
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20">
-                <div className="absolute inset-0 flex items-center justify-center">
+              <Card className="aspect-[4/3] bg-gradient-to-br from-primary/20 to-accent/20 border-0">
+                <CardContent className="h-full flex items-center justify-center">
                   <div className="text-center">
-                    <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-white/80 flex items-center justify-center">
-                      <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                      </svg>
+                    <div className="size-20 mx-auto mb-4 rounded-full bg-white/80 flex items-center justify-center">
+                      <Heart className="size-10 text-primary" />
                     </div>
                     <p className="text-slate-600 font-medium">Dedicated to Your Wellness</p>
                   </div>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             </motion.div>
           </div>
         </div>
@@ -176,15 +161,18 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-center p-6 bg-white rounded-2xl shadow-sm"
               >
-                <div className="w-16 h-16 mx-auto mb-5 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
-                  {value.icon}
-                </div>
-                <h3 className="text-lg font-semibold text-slate-800 mb-3">
-                  {value.title}
-                </h3>
-                <p className="text-sm text-slate-600">{value.description}</p>
+                <Card className="text-center h-full border-0 shadow-sm hover:shadow-lg transition-shadow">
+                  <CardContent className="pt-8">
+                    <div className="size-16 mx-auto mb-5 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                      {value.icon}
+                    </div>
+                    <h3 className="text-lg font-semibold text-slate-800 mb-3">
+                      {value.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">{value.description}</p>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </div>
@@ -210,7 +198,7 @@ export default function AboutPage() {
                 className="flex gap-6 mb-8 last:mb-0"
               >
                 <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">
+                  <div className="size-12 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">
                     {item.year}
                   </div>
                   {index < timeline.length - 1 && (
@@ -221,7 +209,7 @@ export default function AboutPage() {
                   <h3 className="text-lg font-semibold text-slate-800 mb-2">
                     {item.title}
                   </h3>
-                  <p className="text-slate-600">{item.description}</p>
+                  <p className="text-muted-foreground">{item.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -245,25 +233,26 @@ export default function AboutPage() {
             >
               Ready to Start Your Wellness Journey?
             </h2>
-            <p className="text-white/80 text-lg mb-8">
+            <p className="text-white/90 text-lg mb-8">
               Visit us at our Crows Nest location or book online to experience
               the Cryospa difference.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-accent text-lg px-8 py-4"
-              >
-                Book Now
-              </Link>
-              <Link
-                href="/contact"
-                className="btn bg-white/10 text-white border-2 border-white/30 hover:bg-white hover:text-primary text-lg px-8 py-4"
-              >
-                Contact Us
-              </Link>
+              <Button asChild variant="accent" size="xl">
+                <Link
+                  href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Book Now
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="xl" className="border-white/30 text-white hover:bg-white hover:text-primary">
+                <Link href="/contact">
+                  Contact Us
+                  <ArrowRight className="size-4" />
+                </Link>
+              </Button>
             </div>
           </motion.div>
         </div>

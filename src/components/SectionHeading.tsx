@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 interface SectionHeadingProps {
   title: string;
@@ -21,21 +22,24 @@ export function SectionHeading({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className={`mb-12 md:mb-16 ${centered ? "text-center" : ""}`}
+      className={cn("mb-12 md:mb-16", centered && "text-center")}
     >
       <h2
-        className={`font-serif mb-4 ${
+        className={cn(
+          "font-serif mb-4",
           light ? "text-white" : "text-slate-900"
-        }`}
+        )}
         style={{ fontFamily: "var(--font-heading)" }}
       >
         {title}
       </h2>
       {subtitle && (
         <p
-          className={`text-lg max-w-2xl ${centered ? "mx-auto" : ""} ${
-            light ? "text-slate-300" : "text-slate-600"
-          }`}
+          className={cn(
+            "text-lg max-w-2xl",
+            centered && "mx-auto",
+            light ? "text-slate-300" : "text-muted-foreground"
+          )}
         >
           {subtitle}
         </p>

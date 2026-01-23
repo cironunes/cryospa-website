@@ -1,8 +1,19 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { Gift, Cake, Heart, TreePine, User, PartyPopper, HeartHandshake, ThumbsUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { SectionHeading } from "@/components/SectionHeading";
+import { cn } from "@/lib/utils";
 
 const voucherOptions = [
   {
@@ -38,14 +49,55 @@ const voucherOptions = [
 ];
 
 const occasions = [
-  { icon: "🎂", label: "Birthday" },
-  { icon: "💝", label: "Valentine's Day" },
-  { icon: "🎄", label: "Christmas" },
-  { icon: "👩", label: "Mother's Day" },
-  { icon: "👨", label: "Father's Day" },
-  { icon: "🎉", label: "Congratulations" },
-  { icon: "💪", label: "Get Well Soon" },
-  { icon: "🙏", label: "Thank You" },
+  { icon: <Cake className="size-5" />, label: "Birthday" },
+  { icon: <Heart className="size-5" />, label: "Valentine's Day" },
+  { icon: <TreePine className="size-5" />, label: "Christmas" },
+  { icon: <User className="size-5" />, label: "Mother's Day" },
+  { icon: <User className="size-5" />, label: "Father's Day" },
+  { icon: <PartyPopper className="size-5" />, label: "Congratulations" },
+  { icon: <HeartHandshake className="size-5" />, label: "Get Well Soon" },
+  { icon: <ThumbsUp className="size-5" />, label: "Thank You" },
+];
+
+const faqs = [
+  {
+    question: "How long are gift vouchers valid?",
+    answer:
+      "Gift vouchers are valid for 3 years from the date of purchase.",
+  },
+  {
+    question: "Can vouchers be used for any treatment?",
+    answer:
+      "Yes! Gift vouchers can be used towards any treatment or product at Cryospa Clinics.",
+  },
+  {
+    question: "Can I check the balance of a voucher?",
+    answer:
+      "Yes, simply contact us or visit the clinic and we can check the remaining balance for you.",
+  },
+  {
+    question: "Are gift vouchers refundable?",
+    answer:
+      "Gift vouchers are non-refundable but are transferable to another person.",
+  },
+];
+
+const steps = [
+  {
+    step: "1",
+    title: "Choose Amount",
+    description: "Select from our preset values or enter a custom amount.",
+  },
+  {
+    step: "2",
+    title: "Personalize",
+    description: "Add a personal message and choose delivery method.",
+  },
+  {
+    step: "3",
+    title: "Send & Enjoy",
+    description: "Voucher is emailed instantly or printed for gifting.",
+  },
 ];
 
 export default function VouchersPage() {
@@ -61,6 +113,7 @@ export default function VouchersPage() {
             className="max-w-3xl mx-auto text-center"
           >
             <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+              <Gift className="size-4 inline mr-2" />
               Gift Vouchers
             </span>
             <h1
@@ -69,7 +122,7 @@ export default function VouchersPage() {
             >
               The Gift of Wellness
             </h1>
-            <p className="text-xl text-slate-600">
+            <p className="text-xl text-muted-foreground">
               Give someone special the gift of relaxation and rejuvenation with
               a Cryospa gift voucher. Perfect for any occasion.
             </p>
@@ -88,51 +141,54 @@ export default function VouchersPage() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
             {voucherOptions.map((option, index) => (
               <motion.div
-                key={option.value}
+                key={String(option.value)}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`relative rounded-2xl p-6 text-center cursor-pointer transition-all hover:shadow-lg ${
+              >
+                <Card className={cn(
+                  "relative cursor-pointer transition-all hover:shadow-lg text-center py-6 border-0",
                   option.popular
                     ? "bg-primary text-white shadow-md"
                     : "bg-slate-50 hover:bg-slate-100"
-                }`}
-              >
-                {option.popular && (
-                  <div className="absolute -top-2 left-1/2 -translate-x-1/2">
-                    <span className="px-2 py-0.5 bg-accent text-white text-[10px] font-semibold rounded-full">
-                      Popular
-                    </span>
-                  </div>
-                )}
-                <div
-                  className={`text-2xl font-bold mb-2 ${
-                    option.popular ? "text-white" : "text-slate-800"
-                  }`}
-                >
-                  {typeof option.value === "number" ? `$${option.value}` : option.value}
-                </div>
-                <p
-                  className={`text-xs ${
-                    option.popular ? "text-white/80" : "text-slate-500"
-                  }`}
-                >
-                  {option.description}
-                </p>
+                )}>
+                  {option.popular && (
+                    <div className="absolute -top-2 left-1/2 -translate-x-1/2">
+                      <Badge variant="accent" className="text-[10px] px-2">
+                        Popular
+                      </Badge>
+                    </div>
+                  )}
+                  <CardContent className="p-4">
+                    <div className={cn(
+                      "text-2xl font-bold mb-2",
+                      option.popular ? "text-white" : "text-slate-800"
+                    )}>
+                      {typeof option.value === "number" ? `$${option.value}` : option.value}
+                    </div>
+                    <p className={cn(
+                      "text-xs",
+                      option.popular ? "text-white/80" : "text-muted-foreground"
+                    )}>
+                      {option.description}
+                    </p>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </div>
 
           <div className="text-center mt-10">
-            <Link
-              href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/gift-cards"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary text-lg px-8 py-4"
-            >
-              Purchase Gift Voucher
-            </Link>
+            <Button asChild size="xl">
+              <Link
+                href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/gift-cards"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Purchase Gift Voucher
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -153,10 +209,13 @@ export default function VouchersPage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="flex items-center gap-2 px-5 py-3 bg-white rounded-full shadow-sm"
               >
-                <span className="text-xl">{occasion.icon}</span>
-                <span className="text-slate-700 font-medium">{occasion.label}</span>
+                <Card className="border-0 shadow-sm hover:shadow-md transition-shadow">
+                  <CardContent className="flex items-center gap-2 px-5 py-3">
+                    <span className="text-primary">{occasion.icon}</span>
+                    <span className="text-slate-700 font-medium">{occasion.label}</span>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </div>
@@ -172,26 +231,7 @@ export default function VouchersPage() {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {[
-              {
-                step: "1",
-                title: "Choose Amount",
-                description:
-                  "Select from our preset values or enter a custom amount.",
-              },
-              {
-                step: "2",
-                title: "Personalize",
-                description:
-                  "Add a personal message and choose delivery method.",
-              },
-              {
-                step: "3",
-                title: "Send & Enjoy",
-                description:
-                  "Voucher is emailed instantly or printed for gifting.",
-              },
-            ].map((item, index) => (
+            {steps.map((item, index) => (
               <motion.div
                 key={item.step}
                 initial={{ opacity: 0, y: 30 }}
@@ -200,13 +240,13 @@ export default function VouchersPage() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-primary text-white flex items-center justify-center text-xl font-bold">
+                <div className="size-14 mx-auto mb-4 rounded-full bg-primary text-white flex items-center justify-center text-xl font-bold">
                   {item.step}
                 </div>
                 <h3 className="text-lg font-semibold text-slate-800 mb-2">
                   {item.title}
                 </h3>
-                <p className="text-sm text-slate-600">{item.description}</p>
+                <p className="text-sm text-muted-foreground">{item.description}</p>
               </motion.div>
             ))}
           </div>
@@ -221,43 +261,27 @@ export default function VouchersPage() {
             subtitle="Everything you need to know about gift vouchers"
           />
 
-          <div className="max-w-2xl mx-auto space-y-4">
-            {[
-              {
-                question: "How long are gift vouchers valid?",
-                answer:
-                  "Gift vouchers are valid for 3 years from the date of purchase.",
-              },
-              {
-                question: "Can vouchers be used for any treatment?",
-                answer:
-                  "Yes! Gift vouchers can be used towards any treatment or product at Cryospa Clinics.",
-              },
-              {
-                question: "Can I check the balance of a voucher?",
-                answer:
-                  "Yes, simply contact us or visit the clinic and we can check the remaining balance for you.",
-              },
-              {
-                question: "Are gift vouchers refundable?",
-                answer:
-                  "Gift vouchers are non-refundable but are transferable to another person.",
-              },
-            ].map((faq, index) => (
-              <motion.div
-                key={faq.question}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="bg-white rounded-xl p-6"
-              >
-                <h4 className="font-semibold text-slate-800 mb-2">
-                  {faq.question}
-                </h4>
-                <p className="text-slate-600 text-sm">{faq.answer}</p>
-              </motion.div>
-            ))}
+          <div className="max-w-2xl mx-auto">
+            <Accordion type="single" collapsible className="space-y-4">
+              {faqs.map((faq, index) => (
+                <motion.div
+                  key={faq.question}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                >
+                  <AccordionItem value={`item-${index}`} className="bg-white rounded-xl px-6 border-0 shadow-sm">
+                    <AccordionTrigger className="text-left font-semibold text-slate-800 hover:no-underline">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                </motion.div>
+              ))}
+            </Accordion>
           </div>
         </div>
       </section>
@@ -278,18 +302,19 @@ export default function VouchersPage() {
             >
               Give the Gift of Wellness Today
             </h2>
-            <p className="text-white/80 text-lg mb-8">
+            <p className="text-white/90 text-lg mb-8">
               Instant delivery. No expiry stress. The perfect present for anyone
               who deserves some self-care.
             </p>
-            <Link
-              href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/gift-cards"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-accent text-lg px-8 py-4"
-            >
-              Purchase Gift Voucher
-            </Link>
+            <Button asChild variant="accent" size="xl">
+              <Link
+                href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/gift-cards"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Purchase Gift Voucher
+              </Link>
+            </Button>
           </motion.div>
         </div>
       </section>

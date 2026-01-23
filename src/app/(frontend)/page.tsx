@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowRight, Sparkles, Users, Award, Clock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { ServiceCard } from "@/components/ServiceCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
 import { BlogCard } from "@/components/BlogCard";
@@ -130,43 +133,33 @@ const features = [
     title: "Private Treatment Rooms",
     description:
       "Every treatment room is yours alone. Enjoy your experience in complete privacy and comfort.",
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-      </svg>
-    ),
+    icon: <Sparkles className="size-8" />,
   },
   {
     title: "Expert Wellness Team",
     description:
       "Our trained professionals guide you through each treatment for the best possible results.",
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-      </svg>
-    ),
+    icon: <Users className="size-8" />,
   },
   {
     title: "Premium Equipment",
     description:
       "We use only the highest quality equipment, including Clearlight saunas and medical-grade cryotherapy.",
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-      </svg>
-    ),
+    icon: <Award className="size-8" />,
   },
   {
     title: "Convenient Location",
     description:
       "Located in Crows Nest with easy public transport access and flexible appointment times.",
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-    ),
+    icon: <Clock className="size-8" />,
   },
+];
+
+const stats = [
+  { value: "10+", label: "Treatments" },
+  { value: "5000+", label: "Happy Clients" },
+  { value: "5★", label: "Google Rating" },
+  { value: "8+", label: "Years Experience" },
 ];
 
 export default function HomePage() {
@@ -209,7 +202,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto"
+              className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto"
             >
               Experience the ultimate in wellness treatments. From whole-body
               cryotherapy to infrared saunas, discover how Cryospa can transform
@@ -222,17 +215,20 @@ export default function HomePage() {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <Link
-                href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary text-lg px-8 py-4"
-              >
-                Book Your Experience
-              </Link>
-              <Link href="/services" className="btn btn-secondary text-lg px-8 py-4">
-                Explore Services
-              </Link>
+              <Button asChild size="xl">
+                <Link
+                  href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Book Your Experience
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="xl">
+                <Link href="/services">
+                  Explore Services
+                </Link>
+              </Button>
             </motion.div>
 
             {/* Stats */}
@@ -242,17 +238,12 @@ export default function HomePage() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8"
             >
-              {[
-                { value: "10+", label: "Treatments" },
-                { value: "5000+", label: "Happy Clients" },
-                { value: "5★", label: "Google Rating" },
-                { value: "8+", label: "Years Experience" },
-              ].map((stat, index) => (
+              {stats.map((stat, index) => (
                 <div key={index} className="text-center">
                   <div className="text-3xl md:text-4xl font-bold text-primary mb-1">
                     {stat.value}
                   </div>
-                  <div className="text-sm text-slate-500">{stat.label}</div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
                 </div>
               ))}
             </motion.div>
@@ -284,7 +275,7 @@ export default function HomePage() {
               title="Sydney's Premier Health & Wellness Centre"
               subtitle="Situated in Sydney's lower North Shore, Cryospa Clinics is a specialised wellness centre designed to revitalise, re-energise and rejuvenate you."
             />
-            <p className="text-slate-600 leading-relaxed mb-8">
+            <p className="text-muted-foreground leading-relaxed mb-8">
               As an award-winning business, Cryospa is dedicated to providing the
               best service to each and every customer. Located in Crows Nest, we
               offer a combination of Cryotherapy, Infrared Sauna, Salt Room
@@ -317,9 +308,12 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-12">
-            <Link href="/services" className="btn btn-secondary">
-              View All Services
-            </Link>
+            <Button asChild variant="outline">
+              <Link href="/services">
+                View All Services
+                <ArrowRight className="size-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -340,15 +334,18 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-center p-6"
               >
-                <div className="w-16 h-16 mx-auto mb-5 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
-                  {feature.icon}
-                </div>
-                <h3 className="text-lg font-semibold text-slate-800 mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-sm text-slate-600">{feature.description}</p>
+                <Card className="text-center h-full border-slate-100 hover:shadow-lg transition-shadow">
+                  <CardContent className="pt-8">
+                    <div className="size-16 mx-auto mb-5 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                      {feature.icon}
+                    </div>
+                    <h3 className="text-lg font-semibold text-slate-800 mb-3">
+                      {feature.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">{feature.description}</p>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </div>
@@ -371,15 +368,12 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-12">
-            <Link
-              href="/testimonials"
-              className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors"
-            >
-              Read more reviews
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
+            <Button asChild variant="ghost" className="text-white/80 hover:text-white hover:bg-white/10">
+              <Link href="/testimonials">
+                Read more reviews
+                <ArrowRight className="size-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -406,9 +400,12 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-12">
-            <Link href="/blog" className="btn btn-secondary">
-              Read More Articles
-            </Link>
+            <Button asChild variant="outline">
+              <Link href="/blog">
+                Read More Articles
+                <ArrowRight className="size-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -429,25 +426,25 @@ export default function HomePage() {
               >
                 Ready to Transform Your Wellness?
               </h2>
-              <p className="text-white/80 text-lg mb-8">
+              <p className="text-white/90 text-lg mb-8">
                 Book your first session today and experience the Cryospa
                 difference. Our team is ready to help you on your wellness journey.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-accent text-lg px-8 py-4"
-                >
-                  Book Now
-                </Link>
-                <Link
-                  href="/contact"
-                  className="btn bg-white/10 text-white border-2 border-white/30 hover:bg-white hover:text-primary text-lg px-8 py-4"
-                >
-                  Contact Us
-                </Link>
+                <Button asChild variant="accent" size="xl">
+                  <Link
+                    href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Book Now
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" size="xl" className="border-white/30 text-white hover:bg-white hover:text-primary">
+                  <Link href="/contact">
+                    Contact Us
+                  </Link>
+                </Button>
               </div>
             </motion.div>
           </div>

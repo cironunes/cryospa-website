@@ -3,6 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { ArrowRight, Calendar } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 interface BlogCardProps {
   title: string;
@@ -30,8 +34,11 @@ export function BlogCard({
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <Link href={`/blog/${slug}`} className="group block">
-        <div className="bg-white rounded-2xl overflow-hidden shadow-md card-hover border border-slate-100">
+      <Link href={`/blog/${slug}`} className="group block h-full">
+        <Card className={cn(
+          "h-full overflow-hidden border-slate-100 py-0 gap-0",
+          "transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+        )}>
           {/* Image */}
           <div className="relative h-52 overflow-hidden bg-slate-100">
             {image ? (
@@ -46,42 +53,33 @@ export function BlogCard({
             )}
             {category && (
               <div className="absolute top-4 left-4">
-                <span className="px-3 py-1 text-xs font-medium bg-white/90 backdrop-blur-sm text-primary rounded-full">
+                <Badge className="bg-white/90 backdrop-blur-sm text-primary border-0 shadow-sm">
                   {category}
-                </span>
+                </Badge>
               </div>
             )}
           </div>
 
           {/* Content */}
-          <div className="p-6">
+          <CardContent className="p-6">
             {date && (
-              <p className="text-xs text-slate-500 mb-2">{date}</p>
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-2">
+                <Calendar className="size-3" />
+                {date}
+              </div>
             )}
             <h3 className="text-lg font-semibold text-slate-800 mb-3 group-hover:text-primary transition-colors line-clamp-2">
               {title}
             </h3>
-            <p className="text-sm text-slate-600 line-clamp-2 mb-4">
+            <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
               {excerpt}
             </p>
             <span className="text-sm font-medium text-primary inline-flex items-center gap-1 group-hover:gap-2 transition-all">
               Read more
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
+              <ArrowRight className="size-4" />
             </span>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       </Link>
     </motion.article>
   );
