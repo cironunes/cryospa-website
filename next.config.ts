@@ -1,8 +1,16 @@
 import type { NextConfig } from "next";
+import { withPayload } from "@payloadcms/next/withPayload";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactCompiler: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cryospaclinics.com.au',
+      },
+    ],
+  },
 };
 
-export default nextConfig;
+export default withPayload(nextConfig);
