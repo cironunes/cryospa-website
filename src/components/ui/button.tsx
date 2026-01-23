@@ -21,7 +21,7 @@ const buttonVariants = cva(
           "text-slate-700 hover:bg-slate-100 hover:text-slate-900 active:bg-slate-200",
         link: "text-teal-600 underline-offset-4 hover:underline hover:text-teal-700 active:text-teal-800",
         accent:
-          "bg-amber-500 text-amber-950 shadow-sm hover:bg-amber-600 active:bg-amber-700 font-semibold",
+          "bg-white text-teal-700 shadow-sm hover:bg-teal-50 active:bg-teal-100 font-semibold border-2 border-white/20",
       },
       size: {
         default: "h-11 px-6 py-2",

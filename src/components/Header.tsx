@@ -49,7 +49,7 @@ function NavLink({ href, children, className }: { href: string; children: React.
       href={href}
       className={cn(
         "relative px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:text-primary",
-        "after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:bg-gradient-to-r after:from-primary after:to-accent",
+        "after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:bg-linear-to-r after:from-primary after:to-accent",
         "after:transition-all after:duration-300 after:-translate-x-1/2",
         "hover:after:w-3/4",
         className
@@ -80,7 +80,7 @@ export function Header() {
           "transition-all duration-500 ease-out",
           isScrolled
             ? "bg-white/80 backdrop-blur-xl shadow-lg shadow-slate-900/5 py-3"
-            : "bg-gradient-to-b from-white/50 to-transparent py-4"
+            : "bg-linear-to-b from-white/50 to-transparent py-4"
         )}
       >
         <div className="container-custom">
@@ -97,9 +97,9 @@ export function Header() {
                 >
                   cryospa
                 </span>
-                <span className="text-[10px] md:text-xs tracking-[0.3em] uppercase font-medium bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
+                {/* <span className="text-[10px] md:text-xs tracking-[0.3em] uppercase font-medium bg-linear-to-r from-primary to-primary-light bg-clip-text text-transparent">
                   Revitalise | Reenergise | Rejuvenate
-                </span>
+                </span> */}
               </div>
             </Link>
 
@@ -122,7 +122,7 @@ export function Header() {
                             <NavigationMenuLink asChild>
                               <Link
                                 href={service.href}
-                                className="group block select-none rounded-xl p-3 leading-none no-underline outline-none transition-all duration-200 hover:bg-gradient-to-br hover:from-primary/5 hover:to-accent/5"
+                                className="group block select-none rounded-xl p-3 leading-none no-underline outline-none transition-all duration-200 hover:bg-linear-to-br hover:from-primary/5 hover:to-accent/5"
                               >
                                 <div className="text-sm font-semibold text-slate-800 group-hover:text-primary transition-colors">
                                   {service.label}
@@ -189,7 +189,7 @@ export function Header() {
                     </span>
                   </SheetTitle>
                 </SheetHeader>
-                
+
                 <div className="mt-8 flex flex-col gap-1">
                   <Link
                     href="/"
