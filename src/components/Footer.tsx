@@ -194,13 +194,13 @@ export function Footer() {
                 </h5>
               </div>
               <div className="space-y-3 text-sm">
-                <div className="flex justify-between items-center gap-4">
-                  <span className="text-slate-300">Weekdays</span>
-                  <span className="text-slate-200">9am – 1pm / 4pm – 8:30pm</span>
+                <div>
+                  <div className="text-slate-300 mb-1.5">Weekdays</div>
+                  <div className="text-slate-200 leading-relaxed">9am – 1pm / 4pm – 8:30pm</div>
                 </div>
-                <div className="flex justify-between items-center gap-4">
-                  <span className="text-slate-300">Weekends</span>
-                  <span className="text-slate-200">8am – 6pm</span>
+                <div>
+                  <div className="text-slate-300 mb-1.5">Weekends</div>
+                  <div className="text-slate-200 leading-relaxed">8am – 6pm</div>
                 </div>
               </div>
             </div>

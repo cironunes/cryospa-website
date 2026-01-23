@@ -3,7 +3,10 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { use } from "react";
+import { Sparkles } from "lucide-react";
 import { BlogCard } from "@/components/BlogCard";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 // Sample blog data - in production, this would come from Payload CMS
 const blogData: Record<
@@ -207,9 +210,11 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
               Back to Blog
             </Link>
 
-            <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full mb-4">
-              {post.category}
-            </span>
+            <div>
+              <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full mb-4">
+                {post.category}
+              </span>
+            </div>
 
             <h1
               className="font-serif text-slate-900 mb-6 text-3xl md:text-4xl lg:text-5xl"
@@ -269,23 +274,42 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
             </div>
 
             {/* CTA */}
-            <div className="mt-12 p-8 bg-gradient-to-br from-primary/5 to-accent/5 rounded-2xl text-center">
-              <h3 className="text-xl font-semibold text-slate-800 mb-4">
-                Ready to Experience These Benefits?
-              </h3>
-              <p className="text-slate-600 mb-6">
-                Book your session at Cryospa Clinics and start your wellness
-                journey today.
-              </p>
-              <Link
-                href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary"
-              >
-                Book Now
-              </Link>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="mt-12"
+            >
+              <Card className="bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5 border-0 shadow-none">
+                <CardContent className="p-8 md:p-12">
+                  <div className="text-center">
+                    <div className="size-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                      <Sparkles className="size-7 text-primary" />
+                    </div>
+                    <h3
+                      className="text-2xl md:text-3xl font-serif text-slate-900 mb-4"
+                      style={{ fontFamily: "var(--font-heading)" }}
+                    >
+                      Ready to Experience These Benefits?
+                    </h3>
+                    <p className="text-muted-foreground mb-8">
+                      Book your session at Cryospa Clinics and start your wellness
+                      journey today.
+                    </p>
+                    <Button asChild size="lg">
+                      <Link
+                        href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Book Now
+                      </Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           </motion.article>
         </div>
       </section>

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { use } from "react";
 import { getServiceIcon } from "@/components/Icons";
+import { Button } from "@/components/ui/button";
 
 // Sample service data - in production, this would come from Payload CMS
 const servicesData: Record<string, {
@@ -500,14 +501,17 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
               Book your session today and take the first step towards better
               health and wellness.
             </p>
-            <Link
-              href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-accent text-lg px-8 py-4"
-            >
-              Book Your Session
-            </Link>
+
+            <Button variant="secondary" size="xl">
+              <Link
+                href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-accent text-lg px-8 py-4"
+              >
+                Book Your Session
+              </Link>
+            </Button>
           </motion.div>
         </div>
       </section>
