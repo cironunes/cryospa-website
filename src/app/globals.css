@@ -95,7 +95,7 @@
   
   /* Accent - Gold Brand Color */
   --accent: #f59e0b;
-  --accent-foreground: #0f172a;
+  --accent-foreground: #451a03; /* amber-950 for high contrast on gold */
   
   /* Destructive */
   --destructive: #dc2626;
@@ -304,7 +304,7 @@ a:hover {
 
 .btn-accent {
   background: var(--color-accent-500);
-  color: white;
+  color: var(--color-accent-900); /* dark text for better contrast */
 }
 
 .btn-accent:hover {
