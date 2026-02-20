@@ -1,10 +1,13 @@
 /**
  * Migrates all blog posts from cryospaclinics.com.au into Payload CMS.
  *
- * How to run:
+ * Recommended: run once via seed so the DB has everything (users, services, testimonials,
+ * team members, and blog posts from the old site):
+ *   pnpm seed
+ *
+ * Other ways to run blog migration only:
  * 1. Start the app (pnpm dev), then open https://localhost:3000/migrate-blog in the browser.
- *    The page runs the migration on load and shows created/skipped/failed counts.
- * 2. Or POST to /migrate-blog (e.g. curl -X POST http://localhost:3000/migrate-blog).
+ * 2. Or POST to /api/migrate-blog (e.g. curl -X POST http://localhost:3000/api/migrate-blog).
  * 3. CLI (pnpm run migrate:blog) may fail with Payload loadEnv in some environments; use (1) or (2) instead.
  */
 import * as cheerio from "cheerio";
@@ -121,12 +124,23 @@ function buildLexicalRoot(children: LexicalBlockNode[]) {
   };
 }
 
-async function fetchPost(slug: string): Promise<{
+export type FetchedPost = {
   title: string;
   excerpt: string;
   content: ReturnType<typeof buildLexicalRoot>;
   publishedDate: string;
-} | null> {
+  authorName?: string;
+  imageUrl?: string;
+};
+
+function resolveUrl(base: string, href: string): string {
+  if (href.startsWith("http://") || href.startsWith("https://")) return href;
+  const baseUrl = base.replace(/\/?$/, "");
+  if (href.startsWith("/")) return `${new URL(baseUrl).origin}${href}`;
+  return `${baseUrl}/${href}`;
+}
+
+async function fetchPost(slug: string): Promise<FetchedPost | null> {
   const url = `${OLD_SITE_BASE}/${slug}/`;
   let res: Response;
   try {
@@ -154,12 +168,38 @@ async function fetchPost(slug: string): Promise<{
     $("title").text().split("|")[0].trim() ||
     slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 
+  // Featured image: og:image first, then first image in entry-content
+  let imageUrl: string | undefined =
+    $("meta[property='og:image']").attr("content")?.trim() || undefined;
+  if (!imageUrl) {
+    let imgContentEl = $(".entry-content").first();
+    if (!imgContentEl.length) imgContentEl = $(".post-content").first();
+    if (!imgContentEl.length) imgContentEl = $("article .content").first();
+    const firstImg = imgContentEl.find("img[src]").first();
+    if (firstImg.length) {
+      const src = firstImg.attr("src")?.trim();
+      if (src) imageUrl = resolveUrl(OLD_SITE_BASE, src);
+    }
+  }
+
+  // Author: WordPress often uses .author-bio .fn, .byline, or meta
+  let authorName: string | undefined =
+    $(".author-bio .fn").first().text().trim() ||
+    $(".byline .author").first().text().trim() ||
+    $('meta[name="author"]').attr("content")?.trim() ||
+    $("meta[property='article:author']").attr("content")?.trim() ||
+    undefined;
+  if (authorName) authorName = authorName.replace(/\s+/g, " ").trim() || undefined;
+
   // Use only the main article body (WordPress .entry-content); strip nav/footer/author/share
-  const contentEl =
-    $(".entry-content").first() ||
-    $(".post-content").first() ||
-    $("article .content").first();
-  if (!contentEl.length) return null;
+  let contentEl = $(".entry-content").first();
+  if (!contentEl.length) contentEl = $(".post-content").first();
+  if (!contentEl.length) contentEl = $("article .content").first();
+
+  if (!contentEl.length) {
+    console.warn(`  ⚠ No content element found for ${slug}`);
+    return null;
+  }
 
   contentEl.find(".entry-footer, .post-navigation, .nav-links, .author-bio, .sharedaddy, .social-share, .wp-block-post-author").remove();
   const contentHtml = contentEl.html() || "";
@@ -189,7 +229,67 @@ async function fetchPost(slug: string): Promise<{
   const metaDate = $("meta[property='article:published_time']").attr("content");
   if (metaDate) publishedDate = metaDate.slice(0, 10);
 
-  return { title, excerpt, content, publishedDate };
+  return { title, excerpt, content, publishedDate, authorName, imageUrl };
+}
+
+/** Download image from URL and create a Payload media document. Returns media id or null. */
+async function downloadImageAndCreateMedia(
+  payload: PayloadInstance,
+  imageUrl: string,
+  alt: string,
+  slug: string,
+): Promise<string | number | null> {
+  let res: Response;
+  try {
+    res = await fetch(imageUrl, {
+      headers: { "User-Agent": "Cryospa-Migration/1.0" },
+      signal: AbortSignal.timeout(15000),
+    });
+  } catch (err) {
+    throw new Error(`Failed to fetch image URL ${imageUrl}: ${err instanceof Error ? err.message : String(err)}`);
+  }
+  if (!res.ok) throw new Error(`Failed to fetch image URL ${imageUrl} - status: ${res.status}`);
+
+  const buffer = Buffer.from(await res.arrayBuffer());
+  const contentType = res.headers.get("content-type") || "image/jpeg";
+  const ext = contentType.includes("png") ? "png" : contentType.includes("webp") ? "webp" : "jpg";
+  const name = `blog-${slug.slice(0, 40)}.${ext}`;
+
+  try {
+    const doc = await payload.create({
+      collection: "media",
+      data: { alt: alt.slice(0, 500) || slug },
+      file: {
+        data: buffer,
+        mimetype: contentType.split(";")[0].trim() || "image/jpeg",
+        name,
+        size: buffer.length,
+      },
+    });
+    return doc.id;
+  } catch (err) {
+    throw new Error(`Failed to create media for image URL ${imageUrl}: ${err instanceof Error ? err.message : String(err)}`);
+  }
+}
+
+/** Find a team-member id by name (exact or contains match). */
+async function findTeamMemberByAuthorName(
+  payload: PayloadInstance,
+  authorName: string,
+): Promise<string | number | null> {
+  const normalized = authorName.trim().replace(/\s+/g, " ");
+  const { docs } = await payload.find({
+    collection: "team-members",
+    where: {
+      or: [
+        { name: { equals: normalized } },
+        { name: { contains: normalized } },
+      ],
+    },
+    limit: 1,
+  });
+  const doc = docs[0];
+  return doc ? (typeof doc.id === "string" ? doc.id : doc.id) : null;
 }
 
 export type PayloadInstance = Awaited<ReturnType<typeof import("payload").getPayload>>;
@@ -232,7 +332,25 @@ export async function runMigration(
     if (!data) {
       failed++;
       progress?.(slug, "fail");
-      continue;
+      throw new Error(`Failed to fetch or parse blog post data for slug: ${slug}`);
+    }
+
+    // Download featured image and create media doc when we have an image URL
+    let featuredImageId: string | number | null = null;
+    if (data.imageUrl) {
+      featuredImageId = await downloadImageAndCreateMedia(
+        payload,
+        data.imageUrl,
+        data.title,
+        slug,
+      );
+      await delay(200);
+    }
+
+    // Resolve author name to team-member id when possible
+    let authorId: string | number | null = null;
+    if (data.authorName) {
+      authorId = await findTeamMemberByAuthorName(payload, data.authorName);
     }
 
     const payloadData = {
@@ -243,6 +361,8 @@ export async function runMigration(
       publishedDate: data.publishedDate,
       status: "published" as const,
       category: "wellness-tips" as const,
+      ...(featuredImageId != null && { featuredImage: featuredImageId }),
+      ...(authorId != null && { author: authorId }),
     };
 
     try {
@@ -262,9 +382,11 @@ export async function runMigration(
         created++;
         progress?.(slug, "ok");
       }
-    } catch {
+    } catch (err) {
+      console.error(`\nError saving ${slug}:`, err);
       failed++;
       progress?.(slug, "fail");
+      throw new Error(`Failed to migrate blog post: ${slug}. Error: ${err instanceof Error ? err.message : String(err)}`);
     }
   }
 

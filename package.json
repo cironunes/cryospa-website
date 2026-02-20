@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "seed": "npx tsx src/seed/index.ts",
+    "seed": "node scripts/seed-via-api.mjs",
     "migrate:blog": "npx tsx src/scripts/migrate-blog-posts.ts",
     "reset:db": "node -e \"const fs=require('fs'); const p='payload.db'; if(fs.existsSync(p)){ fs.copyFileSync(p,p+'.bak'); fs.unlinkSync(p); console.log('Backed up and removed payload.db'); } else { console.log('No payload.db found'); }\"",
     "generate:types": "payload generate:types"

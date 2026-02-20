@@ -1,5 +1,6 @@
 import { getPayload } from "payload";
 import config from "@payload-config";
+import { getMediaUrl } from "@/lib/utils";
 import { BlogPageClient } from "./BlogPageClient";
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -20,13 +21,9 @@ export default async function BlogPage() {
   });
 
   const blogPosts = posts.map((post) => {
-    const featuredImage = post.featuredImage;
-    const imageUrl =
-      typeof featuredImage === "object" && featuredImage?.url
-        ? featuredImage.url
-        : typeof featuredImage === "object" && featuredImage?.filename
-          ? `/media/${featuredImage.filename}`
-          : undefined;
+    const imageUrl = getMediaUrl(
+      post.featuredImage as { url?: string; filename?: string } | null | undefined
+    );
     return {
       title: post.title,
       excerpt: post.excerpt ?? "",

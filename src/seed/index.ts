@@ -1,5 +1,10 @@
+/**
+ * One-time seed: admin user, services, testimonials, team members, and blog posts
+ * migrated from cryospaclinics.com.au. Run with: pnpm seed
+ */
 import { getPayload } from "payload";
 import config from "@payload-config";
+import { runMigration } from "../scripts/migrate-blog-posts";
 
 async function seed() {
   const payload = await getPayload({ config });
@@ -7,7 +12,11 @@ async function seed() {
   console.log("🌱 Starting seed process...");
 
   // Create admin user
-  try {
+  const existingAdmins = await payload.find({
+    collection: "users",
+    where: { email: { equals: "admin@cryospaclinics.com" } },
+  });
+  if (existingAdmins.totalDocs === 0) {
     await payload.create({
       collection: "users",
       data: {
@@ -18,8 +27,8 @@ async function seed() {
       },
     });
     console.log("✅ Admin user created");
-  } catch {
-    console.log("ℹ️ Admin user may already exist");
+  } else {
+    console.log("ℹ️ Admin user already exists");
   }
 
   // Seed Services
@@ -131,14 +140,18 @@ async function seed() {
   ];
 
   for (const service of services) {
-    try {
+    const existing = await payload.find({
+      collection: "services",
+      where: { slug: { equals: service.slug } },
+    });
+    if (existing.totalDocs === 0) {
       await payload.create({
         collection: "services",
         data: service,
       });
       console.log(`✅ Created service: ${service.title}`);
-    } catch {
-      console.log(`ℹ️ Service ${service.title} may already exist`);
+    } else {
+      console.log(`ℹ️ Service ${service.title} already exists`);
     }
   }
 
@@ -189,78 +202,22 @@ async function seed() {
   ];
 
   for (const testimonial of testimonials) {
-    try {
+    const existing = await payload.find({
+      collection: "testimonials",
+      where: { customerName: { equals: testimonial.customerName } },
+    });
+    if (existing.totalDocs === 0) {
       await payload.create({
         collection: "testimonials",
         data: testimonial,
       });
       console.log(`✅ Created testimonial from: ${testimonial.customerName}`);
-    } catch {
-      console.log(`ℹ️ Testimonial from ${testimonial.customerName} may already exist`);
+    } else {
+      console.log(`ℹ️ Testimonial from ${testimonial.customerName} already exists`);
     }
   }
 
-  // Seed Blog Posts
-  const blogPosts = [
-    {
-      title: "Infrared Saunas – Unveiling Their Healing Power",
-      slug: "infrared-saunas-healing-power",
-      excerpt:
-        "In a bustling city like Sydney, where the fast-paced lifestyle often takes a toll, discover how infrared saunas can help restore balance and wellness.",
-      category: "wellness-tips",
-      publishedDate: "2026-01-15",
-      status: "published",
-    },
-    {
-      title: "Red Light Therapy: Effectiveness for Skin Care",
-      slug: "red-light-therapy-skin-care",
-      excerpt:
-        "Red light therapy is a procedure designed to help heal your skin, ranging from reducing wrinkles to improving overall skin tone and texture.",
-      category: "treatment-guide",
-      publishedDate: "2026-01-10",
-      status: "published",
-    },
-    {
-      title: "Does Salt Room Therapy Help With Acne?",
-      slug: "salt-room-therapy-acne",
-      excerpt:
-        "Salt therapy (halotherapy) has a vast range of benefits. Learn how this ancient treatment can help with skin conditions including acne.",
-      category: "health-benefits",
-      publishedDate: "2026-01-05",
-      status: "published",
-    },
-  ];
-
-  for (const post of blogPosts) {
-    try {
-      await payload.create({
-        collection: "blog-posts",
-        data: {
-          ...post,
-          content: {
-            root: {
-              type: "root",
-              children: [
-                {
-                  type: "paragraph",
-                  children: [{ type: "text", text: post.excerpt }],
-                },
-              ],
-              direction: "ltr",
-              format: "",
-              indent: 0,
-              version: 1,
-            },
-          },
-        },
-      });
-      console.log(`✅ Created blog post: ${post.title}`);
-    } catch {
-      console.log(`ℹ️ Blog post ${post.title} may already exist`);
-    }
-  }
-
-  // Seed Team Members
+  // Seed Team Members (before blog migration so authors can be resolved)
   const teamMembers = [
     {
       name: "Mitch",
@@ -277,22 +234,43 @@ async function seed() {
   ];
 
   for (const member of teamMembers) {
-    try {
+    const existing = await payload.find({
+      collection: "team-members",
+      where: { name: { equals: member.name } },
+    });
+    if (existing.totalDocs === 0) {
       await payload.create({
         collection: "team-members",
         data: member,
       });
       console.log(`✅ Created team member: ${member.name}`);
-    } catch {
-      console.log(`ℹ️ Team member ${member.name} may already exist`);
+    } else {
+      console.log(`ℹ️ Team member ${member.name} already exists`);
     }
   }
 
+  // Migrate blog posts from old site (cryospaclinics.com.au)
+  console.log("\n📥 Migrating blog posts from cryospaclinics.com.au...");
+  const stats = await runMigration(payload, (slug, status) => {
+    process.stdout.write(`  ${slug} ... ${status}\n`);
+  });
+  console.log(
+    `✅ Blog migration: ${stats.created} created, ${stats.updated} updated, ${stats.skipped} skipped, ${stats.failed} failed\n`,
+  );
+
   console.log("🎉 Seed process completed!");
-  process.exit(0);
+  return { blogStats: stats };
 }
 
-seed().catch((err) => {
-  console.error("Error seeding database:", err);
-  process.exit(1);
-});
+// Run when executed as script (pnpm seed via API, not directly — see package.json)
+const isRunDirectly = typeof process !== "undefined" && process.argv[1]?.endsWith("seed/index.ts");
+if (isRunDirectly) {
+  seed()
+    .then(() => process.exit(0))
+    .catch((err) => {
+      console.error("Error seeding database:", err);
+      process.exit(1);
+    });
+}
+
+export { seed };

@@ -2,8 +2,10 @@ import { getPayload } from "payload";
 import config from "@payload-config";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { convertLexicalToHTML } from "@payloadcms/richtext-lexical/html";
 import { Sparkles } from "lucide-react";
+import { getMediaUrl } from "@/lib/utils";
 import { BlogCard } from "@/components/BlogCard";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -65,12 +67,13 @@ export default async function BlogPostPage({ params }: Props) {
     },
     sort: "-publishedDate",
     limit: 3,
-    depth: 0,
+    depth: 1,
   });
 
   const relatedPosts = relatedDocs.map((p) => ({
     title: p.title,
     slug: p.slug,
+    excerpt: p.excerpt ?? "",
     category: p.category ? CATEGORY_LABELS[p.category] ?? p.category : "",
     date: p.publishedDate
       ? new Date(p.publishedDate).toLocaleDateString("en-AU", {
@@ -79,7 +82,14 @@ export default async function BlogPostPage({ params }: Props) {
           year: "numeric",
         })
       : "",
+    image: getMediaUrl(
+      p.featuredImage as { url?: string; filename?: string } | null | undefined
+    ),
   }));
+
+  const featuredImageUrl = getMediaUrl(
+    post.featuredImage as { url?: string; filename?: string } | null | undefined
+  );
 
   return (
     <>
@@ -128,6 +138,26 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {/* Featured Image */}
+      {featuredImageUrl && (
+        <section className="bg-white">
+          <div className="container-custom">
+            <div className="max-w-4xl mx-auto">
+              <div className="relative aspect-[16/10] overflow-hidden rounded-xl">
+                <Image
+                  src={featuredImageUrl}
+                  alt={post.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 896px) 100vw, 896px"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Content */}
       <section className="section bg-white">
@@ -187,7 +217,8 @@ export default async function BlogPostPage({ params }: Props) {
                   key={relatedPost.slug}
                   title={relatedPost.title}
                   slug={relatedPost.slug}
-                  excerpt=""
+                  excerpt={relatedPost.excerpt}
+                  image={relatedPost.image}
                   category={relatedPost.category}
                   date={relatedPost.date}
                   index={index}

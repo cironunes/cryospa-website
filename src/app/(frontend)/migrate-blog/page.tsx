@@ -4,7 +4,8 @@ import { runMigration } from "@/scripts/migrate-blog-posts";
 
 /**
  * One-time page to run blog migration. Visit /migrate-blog to run it.
- * Add ?update=1 to re-run and overwrite existing posts with cleaned content.
+ * Add ?update=1 to re-run and overwrite existing posts with cleaned content,
+ * including featured images (downloaded and saved to media) and author (matched to team-members).
  * Takes 1–2 minutes (fetches 46 posts with rate limiting). Remove this page after use.
  */
 type Props = { searchParams: Promise<{ update?: string }> };
@@ -52,7 +53,10 @@ pnpm dev
       {result && (
         <div className="space-y-2">
           <p className="text-sm text-slate-600">
-            {updateExisting ? "Updated existing posts with cleaned content." : "Migration complete."} Testimonial author pages (8 slugs) are excluded and only redirect; no blog docs created for them.
+            {updateExisting
+              ? "Updated existing posts with cleaned content, featured images, and author."
+              : "Migration complete."}{" "}
+            Images are downloaded and saved to media; author is matched to team-members when possible. Testimonial author pages (8 slugs) are excluded and only redirect; no blog docs created for them.
           </p>
           <pre className="bg-slate-100 p-4 rounded text-sm">
             {JSON.stringify({ ok: true, updateExisting, ...result }, null, 2)}

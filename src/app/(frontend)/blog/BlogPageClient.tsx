@@ -104,12 +104,12 @@ export function BlogPageClient({
             </div>
           )}
 
-          {/* Load More - optional for future pagination */}
+          {/* Load More - optional for future pagination
           {filteredPosts.length > 0 && (
             <div className="text-center mt-12">
               <Button variant="outline">Load More Articles</Button>
             </div>
-          )}
+          )} */}
         </div>
       </section>
 
