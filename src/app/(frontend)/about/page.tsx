@@ -38,7 +38,7 @@ const timeline = [
   {
     year: "2017",
     title: "The Beginning",
-    description: "Cryospa Clinics opened its doors in Crows Nest, becoming Sydney's first dedicated cryotherapy and wellness centre.",
+    description: "Cryospa Clinics opened its doors in Crows Nest, becoming Sydney's first dedicated wellness centre.",
   },
   {
     year: "2018",
@@ -112,7 +112,7 @@ export default function AboutPage() {
                 <p>
                   As an award-winning business, Cryospa is dedicated to providing
                   the best service to each and every customer looking for
-                  cryotherapy, infrared sauna, salt room treatments, and more.
+                  infrared sauna, salt room treatments, and more.
                 </p>
                 <p>
                   We believe that wellness should be accessible, effective, and

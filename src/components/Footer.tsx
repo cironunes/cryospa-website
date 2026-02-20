@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Facebook, Instagram, Twitter, MapPin, Phone, Mail, Clock } from "lucide-react";
 
 const services = [
-  { label: "Cryotherapy", href: "/services/cryotherapy" },
   { label: "Infrared Sauna", href: "/services/infrared-sauna" },
   { label: "Himalayan Salt Room", href: "/services/salt-room" },
   { label: "Red Light Therapy", href: "/services/red-light-therapy" },
@@ -199,8 +198,12 @@ export function Footer() {
                   <div className="text-slate-200 leading-relaxed">9am – 1pm / 4pm – 8:30pm</div>
                 </div>
                 <div>
-                  <div className="text-slate-300 mb-1.5">Weekends</div>
+                  <div className="text-slate-300 mb-1.5">Saturday</div>
                   <div className="text-slate-200 leading-relaxed">8am – 6pm</div>
+                </div>
+                <div>
+                  <div className="text-slate-300 mb-1.5">Sunday</div>
+                  <div className="text-slate-200 leading-relaxed">8am – 3pm</div>
                 </div>
               </div>
             </div>

@@ -20,12 +20,12 @@ const allTestimonials = [
     content:
       "This has long been my go to place for recovery. From the great service and the top notch facilities and atmosphere I couldn't imagine going anywhere else. Mitch and his team have done a great job.",
     rating: 5,
-    service: "Cryotherapy",
+    service: "Recovery",
   },
   {
     name: "Lara Nercessian",
     content:
-      "I had a really positive experience at Cryospa Clinics. The customer service, facilities and services were wonderful. I used the infrared sauna and will most certainly be back to try cryotherapy and try salt room!",
+      "I had a really positive experience at Cryospa Clinics. The customer service, facilities and services were wonderful. I used the infrared sauna and will most certainly be back to try the salt room!",
     rating: 5,
     service: "Infrared Sauna",
   },
@@ -34,19 +34,19 @@ const allTestimonials = [
     content:
       "Amazing place, really clean and super friendly staff! Clearlight sauna too which is top of the line. Would highly recommend to anyone looking for quality wellness treatments.",
     rating: 5,
-    service: "Sauna & Cryo",
+    service: "Sauna & Recovery",
   },
   {
     name: "Inez Bye",
     content:
-      "Had a cryo, infrared sauna and salt room treatments and enjoyed every minute on a chilly Saturday afternoon. Left the clinic feeling more relaxed in all my sore muscles and have been sleeping like a baby!",
+      "Had infrared sauna and salt room treatments and enjoyed every minute on a chilly Saturday afternoon. Left the clinic feeling more relaxed in all my sore muscles and have been sleeping like a baby!",
     rating: 5,
     service: "Multiple Treatments",
   },
   {
     name: "Tamara Gabriel",
     content:
-      "Absolutely blown away by the level of service and positive energy in this practice. I attended Cryospa for a few treatments. Cryo sauna, infrared sauna and the salt room. I was blown away by each experience.",
+      "Absolutely blown away by the level of service and positive energy in this practice. I attended Cryospa for a few treatments. Infrared sauna and the salt room. I was blown away by each experience.",
     rating: 5,
     service: "Full Experience",
   },
@@ -60,7 +60,7 @@ const allTestimonials = [
   {
     name: "Lauren Dunne",
     content:
-      "Loved my visit to Cryospa! The combination of cryotherapy, infrared sauna and salt room was very invigorating. I'll definitely be back! The staff were incredibly knowledgeable and friendly.",
+      "Loved my visit to Cryospa! The combination of infrared sauna and salt room was very invigorating. I'll definitely be back! The staff were incredibly knowledgeable and friendly.",
     rating: 5,
     service: "Multiple Treatments",
   },
@@ -74,9 +74,9 @@ const allTestimonials = [
   {
     name: "Maddy King",
     content:
-      "I love having a great detox place on the Northside! I love the saunas and the cryo has helped my dad's joint inflammation. Such a professional and welcoming environment.",
+      "I love having a great detox place on the Northside! I love the saunas and the treatments have helped my dad's joint inflammation. Such a professional and welcoming environment.",
     rating: 5,
-    service: "Sauna & Cryo",
+    service: "Sauna & Recovery",
   },
   {
     name: "Sarah M",
@@ -90,7 +90,7 @@ const allTestimonials = [
     content:
       "As a professional athlete, recovery is crucial. Cryospa has become an essential part of my training routine. The staff understand the needs of athletes and the equipment is top-notch.",
     rating: 5,
-    service: "Cryotherapy",
+    service: "Recovery",
   },
 ];
 

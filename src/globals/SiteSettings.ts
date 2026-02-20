@@ -65,7 +65,7 @@ export const SiteSettings: GlobalConfig = {
         {
           name: 'sunday',
           type: 'text',
-          defaultValue: '8am – 6pm',
+          defaultValue: '8am – 3pm',
         },
       ],
     },

@@ -6,6 +6,9 @@ import { use } from "react";
 import { getServiceIcon } from "@/components/Icons";
 import { Button } from "@/components/ui/button";
 
+// Optional sub-treatments (e.g. massage types)
+type TreatmentItem = { name: string; description: string; duration: string };
+
 // Sample service data - in production, this would come from Payload CMS
 const servicesData: Record<string, {
   title: string;
@@ -18,32 +21,9 @@ const servicesData: Record<string, {
   priceNote: string;
   icon: string;
   image?: string;
+  treatments?: TreatmentItem[];
+  warningMessage?: string;
 }> = {
-  cryotherapy: {
-    title: "Whole Body Cryotherapy",
-    tagline: "Experience the power of extreme cold",
-    description:
-      "A revolutionary 3-minute treatment that exposes your body to ultra-cold temperatures, triggering powerful healing and recovery responses.",
-    fullDescription: [
-      "Athletes, celebrities, chronic pain sufferers and everyday people use the power of three minute whole-body cryotherapy treatments to assist in muscle repair and fatigue, injury treatment and skin rejuvenation.",
-      "During a Whole Body Cryotherapy session, you enter a cryotherapy chamber where your body is exposed to extremely cold temperatures (between -110°C to -140°C) for up to three minutes. This triggers your body's natural healing mechanisms.",
-      "The cold causes blood to rush to your core to protect vital organs, enriching it with oxygen and nutrients. After the session, this nutrient-rich blood flows back to your extremities, reducing inflammation and promoting healing.",
-    ],
-    benefits: [
-      "Accelerated muscle recovery",
-      "Reduced inflammation and pain",
-      "Improved athletic performance",
-      "Enhanced skin appearance",
-      "Boosted metabolism",
-      "Improved sleep quality",
-      "Elevated mood and energy",
-      "Support for injury rehabilitation",
-    ],
-    duration: "3 minutes",
-    price: 65,
-    priceNote: "per session",
-    icon: "snowflake",
-  },
   "infrared-sauna": {
     title: "Infrared Sauna",
     tagline: "Deep heat therapy for total relaxation",
@@ -173,7 +153,7 @@ const servicesData: Record<string, {
     title: "Lymphatic Drainage Massage",
     tagline: "Gentle therapy for deep detoxification",
     description:
-      "A specialized massage technique that encourages the natural drainage of lymph, helping to detoxify your body and boost immune function.",
+      "A specialized massage technique that encourages the natural drainage of lymph, helping to detoxify your body and boost immune function. We offer sessions for workout relief, full-body detox, pregnancy, post-op recovery, dry brushing, and more.",
     fullDescription: [
       "Lymphatic drainage massage is a gentle, rhythmic massage treatment that encourages the movement of lymph fluids around the body.",
       "The lymphatic system is part of your immune system and helps rid your body of toxins, waste, and other unwanted materials. Unlike the circulatory system, it doesn't have a pump, relying on muscle movement to function.",
@@ -189,20 +169,65 @@ const servicesData: Record<string, {
       "Reduced stress and anxiety",
       "Post-surgery recovery support",
     ],
-    duration: "60 minutes",
-    price: 95,
-    priceNote: "per session",
+    duration: "45–90 minutes",
+    price: 120,
+    priceNote: "from",
     icon: "lymphatic",
+    warningMessage:
+      "It is not recommended to have a lymphatic drainage session if you're experiencing any fever, cold or flu symptoms, acute inflammations and infections (e.g. a UTI), active cancer that is not being treated, thrombosis, or heart, kidneys and liver dysfunction or failure. The same applies to any other major health concerns that are not stabilised and/or currently under treatment. Please ask for medical clearance with your health practitioner where advised (e.g. pregnancy, post-op).",
+    treatments: [
+      {
+        name: "Workout Relief",
+        duration: "45 minutes",
+        description:
+          "Abdomen + upper body OR lower body lymphatic massage. Ideal for pre- and post-workout sessions—whether you're into gym, crossfit, running, swimming, bodybuilding or any consistent exercise—to increase performance and reduce fluid retention. Combo available: 45 min Workout Relief + 30 min Infrared Sauna. Note: Lymphatic drainage is a light pressure massage; for firmer technique, consider Sports, Deep Tissue or Remedial Massage.",
+      },
+      {
+        name: "No Flow No Glow",
+        duration: "90 minutes",
+        description:
+          "Full body lymphatic drainage OR full body and face. This toxin-flushing massage is ideal as a first-time session (90 min full body only) with a full body assessment on areas of inflammation, fluid retention and related symptoms (bloating, swelling, fatigue). Also available as a follow-up with facial lift and detox (90 min full body and face). Combo available with 30 min Infrared Sauna. We highly recommend starting with this 90-minute session, then using 60-minute sessions for follow-up.",
+      },
+      {
+        name: "Lymphatic Drainage Massage",
+        duration: "60 minutes",
+        description:
+          "Full body session. Ideal as your follow-up sessions to maintain detox of the lymphatic system. We aim to reduce fluid retention (oedema), inflammation and related symptoms such as abdominal bloating, constipation, swelling of the legs and feet, fatigue and general congestion. Packs available: 3 sessions or 6 sessions. Combo available with 30 min Infrared Sauna.",
+      },
+      {
+        name: "Dry Brushing Lymphatic Bliss",
+        duration: "75 minutes",
+        description:
+          "Full body lymphatic massage plus dry brushing. Ideal for those looking for an effective, relaxing way to exfoliate and prepare the skin before the detox touch of lymphatic drainage. Dry body brushing smooths skin texture and improves absorption of massage oil while supporting circulation. Combo available with 30 min Infrared Sauna.",
+      },
+      {
+        name: "Pregnancy Lymph Drainage Massage",
+        duration: "60 minutes",
+        description:
+          "Full body session. Pregnancy demands a lot from the body; before birth the baby relies on the mother's immune system. Lymphatic drainage helps support the lymphatic system (part of the immune system), reduce fluid retention, improve circulation and cellular oxygenation, and support better nutrient absorption and less swelling and discomfort. Packs available. Note: Please ask for medical clearance with your health practitioner before booking.",
+      },
+      {
+        name: "Post-Op Lymph Drainage Massage",
+        duration: "75 minutes",
+        description:
+          "Body or face lymphatic drainage. Your lymphatic system is key to healing, regenerating tissues and removing excess fluid after surgery. This session is ideal for the first six weeks of recovery and prepares your body for follow-up maintenance. It aims to reduce oedema and support the deep lymphatic system. Packs available. Note: Please specify the type of surgery and how many days/weeks post-op (including c-section). Always ask for medical clearance before booking.",
+      },
+      {
+        name: "Add On Lymphatic Facial",
+        duration: "30 minutes",
+        description:
+          "Facial lymphatic drainage massage. Add 30 minutes onto your body or Workout Relief session for a facial detox focused on decongestion and lymphatic drainage. The head and neck region contains over 300 lymph nodes; this treatment can help with migraines, sinuses, facial puffiness, nasal congestion and acne irritation caused by toxins in the lymphatic system. Add-on only—book in addition to any full body or Workout Relief session.",
+      },
+    ],
   },
   massage: {
     title: "Massage Therapy",
-    tagline: "Therapeutic touch for body and mind",
+    tagline: "Cryospa's indulgent Massage Therapies",
     description:
-      "Our skilled therapists offer a range of massage treatments to relieve tension, reduce stress, and promote overall wellbeing.",
+      "Our skilled therapists offer a range of massage treatments to relieve tension, reduce stress, and promote overall wellbeing—from relaxing aromatherapy to body sculpting and reflexology.",
     fullDescription: [
       "Massage therapy is one of the oldest healing practices. At Cryospa, our skilled therapists combine traditional techniques with modern knowledge to provide therapeutic treatments tailored to your needs.",
-      "Whether you're seeking relief from chronic pain, recovering from an injury, or simply looking to relax and de-stress, our massage services can help.",
-      "We offer various massage styles including deep tissue, Swedish, sports massage, and more, all performed in our private, comfortable treatment rooms.",
+      "Whether you're seeking relief from chronic pain, recovering from an injury, or simply looking to relax and de-stress, our massage services can help. All treatments are performed in our private, comfortable treatment rooms.",
     ],
     benefits: [
       "Reduced muscle tension",
@@ -214,20 +239,39 @@ const servicesData: Record<string, {
       "Improved posture",
       "Boosted mood",
     ],
-    duration: "30-60 minutes",
+    duration: "40–60 minutes",
     price: 70,
     priceNote: "from",
     icon: "hands",
+    treatments: [
+      {
+        name: "Me Time Massage",
+        duration: "1 hour",
+        description:
+          "Escape the daily stresses of life with our luxurious 1-hour Relaxing Massage and Aromatherapy experience. This rejuvenating treatment combines the therapeutic benefits of a soothing oil massage with the calming effects of carefully selected essential oils, designed to ease tension and promote deep relaxation. Our skilled therapists provide personalized care tailored to your specific needs, ensuring that each session is a unique journey toward tranquillity and well-being. Set in a serene, peaceful environment, this massage offers you the perfect retreat to unwind, rejuvenate, and restore your mind and body to a state of balance and harmony.",
+      },
+      {
+        name: "Brazilian Body Sculp Massage",
+        duration: "1 hour",
+        description:
+          "Immerse yourself in a one-hour, transformative full-body massage that goes beyond relaxation to deliver noticeable results. Our skilled therapists apply rhythmic movements and targeted pressure to strategically contour and tone your body. As the massage progresses, you'll feel the targeted pressure techniques begin to break down stubborn cellulite, smoothing and refining the texture of your skin. This process not only improves the appearance of your skin but also enhances muscle definition, giving your body a more sculpted and toned look. The rhythmic movements are carefully calibrated to invigorate your entire body, leaving you feeling lighter, more energized, and deeply refreshed. The benefits extend beyond the session, as your improved circulation and enhanced muscle tone contribute to long-lasting results. Embrace this hour of self-care and step out feeling sculpted, revitalized, and truly transformed.",
+      },
+      {
+        name: "Chinese Foot Massage",
+        duration: "40 minutes",
+        description:
+          "Indulge in a 40-minute foot massage that goes beyond simple relaxation, tapping into the ancient art of reflexology to deliver profound benefits for your entire body. This therapeutic treatment involves the application of targeted pressure to specific reflex points on your feet, each corresponding to different organs and systems within your body. By stimulating these key areas, the massage not only alleviates tension and fatigue in your feet but also promotes improved circulation, reduces stress, and enhances overall health and well-being. The treatment is designed to support your body's natural healing processes and leave you feeling refreshed, revitalized, and deeply relaxed. Perfect for those seeking both immediate relief and long-term wellness, this 40-minute session is an essential part of your self-care routine.",
+      },
+    ],
   },
   facials: {
     title: "Premium Facials",
-    tagline: "Reveal your natural radiance",
+    tagline: "New Cryospa Facials — reveal your natural radiance",
     description:
-      "Rejuvenate your skin with our premium facial treatments, using high-quality products and expert techniques for visible results.",
+      "Rejuvenate your skin with our premium facial treatments, from quick refreshers to deep cleansing and advanced microneedling, using high-quality products and expert techniques.",
     fullDescription: [
       "Our facial treatments are designed to cleanse, nourish, and rejuvenate your skin. Using premium products and expert techniques, our aestheticians create customized treatments for your skin type and concerns.",
-      "Each facial begins with a thorough skin analysis, followed by cleansing, exfoliation, extraction (if needed), mask, and moisturizing treatments. We take the time to ensure your skin receives exactly what it needs.",
-      "Whether you're dealing with acne, aging concerns, dehydration, or simply want to maintain healthy, glowing skin, we have a facial treatment for you.",
+      "Whether you want a 45-minute escape, a deep cleanse, or advanced rejuvenation with microneedling and red light therapy, we have a facial to suit you.",
     ],
     benefits: [
       "Deep cleansing",
@@ -239,10 +283,36 @@ const servicesData: Record<string, {
       "Even skin tone",
       "Relaxation and pampering",
     ],
-    duration: "45-60 minutes",
+    duration: "45–90 minutes",
     price: 85,
     priceNote: "from",
     icon: "face",
+    treatments: [
+      {
+        name: "Me Time Facial",
+        duration: "45 minutes",
+        description:
+          "Our luxurious 45-minute Me Time Facial is designed to refresh and rejuvenate your skin effortlessly. The treatment begins with a deep cleansing to remove impurities and prepare your skin, followed by gentle exfoliation to reveal a brighter, more radiant complexion. Our skilled therapist then performs a soothing facial massage, promoting circulation and relaxation while enhancing your skin's natural glow. Nourishing serums are applied so your skin is left hydrated and revitalized. Perfect for a quick yet indulgent break, the Me Time Facial offers a moment of tranquillity and self-care.",
+      },
+      {
+        name: "Glow Me Time Facial",
+        duration: "45 min facial + 15 min collagen bed",
+        description:
+          "Indulge in a comprehensive skincare experience with our 45-minute facial massage. The treatment begins with a deep cleansing to remove impurities, followed by gentle exfoliation to reveal a brighter, smoother complexion. The facial massage stimulates circulation and enhances the absorption of nourishing serums, leaving your skin refreshed and revitalised. To elevate your experience, the session concludes with a 15-minute full-body collagen bed treatment featuring advanced red light therapy. This technology boosts collagen production, improves skin elasticity, and enhances your natural glow. Perfect for those seeking both immediate and lasting beauty and wellness benefits.",
+      },
+      {
+        name: "Deep Cleansing",
+        duration: "90 minutes",
+        description:
+          "Indulge in our luxurious 90-minute facial, designed to deeply cleanse and rejuvenate your skin. Begin with a thorough deep cleansing to remove impurities, followed by soothing steam to open pores and prepare your skin for exfoliation. Gentle exfoliation reveals a brighter, smoother complexion, while precise extractions clear clogged pores. Nourishing serums are then applied, targeting your skin's specific needs, followed by a relaxing facial massage that boosts circulation and enhances product absorption. The treatment concludes with a rejuvenating mask, leaving your skin soft, supple, and glowing with renewed vitality.",
+      },
+      {
+        name: "Microneedling Face, Neck and Décolleté",
+        duration: "60 minutes (+ follow-up red light 4 days later)",
+        description:
+          "Elevate your skincare routine with our 60-minute facial, designed to deeply rejuvenate and enhance your natural beauty. Begin with a thorough cleansing, followed by precision needling that stimulates collagen production and promotes skin renewal. Potent serums are then applied to nourish and revitalize your skin at a cellular level, while a luxurious hydrating mask restores moisture. The treatment concludes with a protective sunscreen application. To amplify your results, enjoy a follow-up session in our full-body collagen bed with red light therapy (booked 4 days after the microneedling session). This further boosts collagen, enhances skin elasticity, and imparts a radiant, youthful complexion.",
+      },
+    ],
   },
 };
 
@@ -341,6 +411,39 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
                   ))}
                 </div>
 
+                {service.warningMessage && (
+                  <div
+                    className="mt-8 p-5 rounded-xl border-2 border-amber-200 bg-amber-50"
+                    role="alert"
+                  >
+                    <div className="flex gap-3">
+                      <div className="shrink-0 w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
+                        <svg
+                          className="w-5 h-5 text-amber-600"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-amber-900 mb-1">
+                          Important
+                        </h4>
+                        <p className="text-sm text-amber-800">
+                          {service.warningMessage}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 <h3 className="text-xl font-semibold text-slate-800 mt-10 mb-6">
                   Key Benefits
                 </h3>
@@ -372,6 +475,41 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
                     </motion.div>
                   ))}
                 </div>
+
+                {service.treatments && service.treatments.length > 0 && (
+                  <>
+                    <h3 className="text-xl font-semibold text-slate-800 mt-12 mb-6">
+                      {slug === "massage"
+                        ? "Our massage types"
+                        : slug === "facials"
+                          ? "Our facial types"
+                          : slug === "lymphatic-drainage"
+                            ? "Our lymphatic drainage types"
+                            : "Treatment types"}
+                    </h3>
+                    <div className="space-y-10">
+                      {service.treatments.map((treatment, index) => (
+                        <motion.div
+                          key={treatment.name}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.4, delay: 0.1 + index * 0.1 }}
+                          className="pb-10 border-b border-slate-200 last:border-0 last:pb-0"
+                        >
+                          <div className="flex flex-wrap items-baseline gap-2 mb-3">
+                            <h4 className="text-lg font-semibold text-slate-800">
+                              {treatment.name}
+                            </h4>
+                            <span className="text-sm text-slate-500 font-medium">
+                              {treatment.duration}
+                            </span>
+                          </div>
+                          <p className="text-slate-600">{treatment.description}</p>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </>
+                )}
               </motion.div>
             </div>
 

@@ -10,16 +10,6 @@ import { getServiceIcon } from "@/components/Icons";
 
 const allServices = [
   {
-    title: "Whole Body Cryotherapy",
-    description:
-      "Athletes, celebrities, chronic pain sufferers and everyday people use the power of three minute whole-body cryotherapy treatments to assist in muscle repair and fatigue, injury treatment and skin rejuvenation.",
-    href: "/services/cryotherapy",
-    icon: "snowflake",
-    duration: "3 minutes",
-    price: 65,
-    category: "Recovery",
-  },
-  {
     title: "Infrared Sauna",
     description:
       "Trust your Sydney sauna to provide you with all the benefits of infrared treatment, including reduced stress, improved sleep, muscle recovery, brightened complexion and faster healing.",

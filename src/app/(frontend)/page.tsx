@@ -15,15 +15,6 @@ import { getServiceIcon } from "@/components/Icons";
 // Sample data - in production, this would come from Payload CMS
 const services = [
   {
-    title: "Whole Body Cryotherapy",
-    description:
-      "Experience the power of extreme cold therapy. A 3-minute treatment that assists with muscle repair, injury recovery, and skin rejuvenation.",
-    href: "/services/cryotherapy",
-    icon: "snowflake",
-    duration: "3 minutes",
-    price: 65,
-  },
-  {
     title: "Infrared Sauna",
     description:
       "Relax in our premium Clearlight saunas. Enjoy reduced stress, improved sleep, muscle recovery, and a brightened complexion.",
@@ -83,12 +74,12 @@ const testimonials = [
     content:
       "This has long been my go to place for recovery. From the great service and the top notch facilities and atmosphere I couldn't imagine going anywhere else. Mitch and his team have done a great job.",
     rating: 5,
-    service: "Cryotherapy",
+    service: "Recovery",
   },
   {
     name: "Lara Nercessian",
     content:
-      "I had a really positive experience at Cryospa Clinics. The customer service, facilities and services were wonderful. I used the infrared sauna and will most certainly be back to try cryotherapy.",
+      "I had a really positive experience at Cryospa Clinics. The customer service, facilities and services were wonderful. I used the infrared sauna and will most certainly be back to try more treatments.",
     rating: 5,
     service: "Infrared Sauna",
   },
@@ -97,7 +88,7 @@ const testimonials = [
     content:
       "Amazing place, really clean and super friendly staff! Clearlight sauna too which is top of the line. Would highly recommend to anyone looking for quality wellness treatments.",
     rating: 5,
-    service: "Sauna & Cryo",
+    service: "Sauna & Recovery",
   },
 ];
 
@@ -144,7 +135,7 @@ const features = [
   {
     title: "Premium Equipment",
     description:
-      "We use only the highest quality equipment, including Clearlight saunas and medical-grade cryotherapy.",
+      "We use only the highest quality equipment, including Clearlight saunas and premium wellness technology.",
     icon: <Award className="size-8" />,
   },
   {
@@ -204,8 +195,8 @@ export default function HomePage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto"
             >
-              Experience the ultimate in wellness treatments. From whole-body
-              cryotherapy to infrared saunas, discover how Cryospa can transform
+              Experience the ultimate in wellness treatments. From infrared
+              saunas to salt room therapy, discover how Cryospa can transform
               your health and wellbeing.
             </motion.p>
 
@@ -278,9 +269,8 @@ export default function HomePage() {
             <p className="text-muted-foreground leading-relaxed mb-8">
               As an award-winning business, Cryospa is dedicated to providing the
               best service to each and every customer. Located in Crows Nest, we
-              offer a combination of Cryotherapy, Infrared Sauna, Salt Room
-              Therapy, Normatec Compression, Red Light Therapy, and Lymphatic
-              Massage. With multiple appointment times available, including
+              offer a combination of Infrared Sauna, Salt Room Therapy, Normatec
+              Compression, Red Light Therapy, and Lymphatic Massage. With multiple appointment times available, including
               weekends, you can find a time that suits – no matter how busy your
               day is.
             </p>

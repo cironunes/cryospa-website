@@ -11,79 +11,128 @@ import { cn } from "@/lib/utils";
 
 const pricingCategories = [
   {
-    title: "Cryotherapy",
-    services: [
-      { name: "Single Session", price: 65, duration: "3 min" },
-      { name: "3 Session Pack", price: 175, note: "Save $20" },
-      { name: "5 Session Pack", price: 275, note: "Save $50" },
-      { name: "10 Session Pack", price: 500, note: "Save $150" },
-    ],
-  },
-  {
     title: "Infrared Sauna",
     services: [
-      { name: "Single Session (1 person)", price: 45, duration: "30 min" },
-      { name: "Single Session (2 people)", price: 70, duration: "30 min" },
-      { name: "Extended Session", price: 55, duration: "45 min" },
-      { name: "5 Session Pack", price: 200, note: "Save $25" },
+      { name: "30 min – Single", price: 33, duration: "30 min" },
+      { name: "30 min – 5 pack", price: 132, note: "3 & 5 pack: 3-month expiry; 10 pack: 6-month" },
+      { name: "30 min – 10 pack", price: 242 },
+      { name: "45 min – Single", price: 44, duration: "45 min" },
+      { name: "45 min – 5 pack", price: 190 },
+      { name: "1 hour – Single", price: 55, duration: "1 hour" },
+      { name: "1 hour – 5 pack", price: 242 },
+      { name: "Extra guest", price: 15, note: "Max 4 people per session" },
     ],
   },
   {
     title: "Salt Room",
     services: [
-      { name: "Single Session", price: 35, duration: "45 min" },
-      { name: "Couple Session", price: 60, duration: "45 min" },
-      { name: "5 Session Pack", price: 150, note: "Save $25" },
-      { name: "10 Session Pack", price: 280, note: "Save $70" },
+      { name: "Single", price: 45 },
+      { name: "Family (2 adults + 3 children)", price: 105 },
+      { name: "Intro 3 pack", price: 90, note: "New clients only; 30-day expiry" },
+      { name: "5 pack", price: 175 },
+      { name: "10 pack", price: 300 },
+      { name: "10 pack family", price: 360 },
+      { name: "Extra guest", price: 20, note: "Max 3 adults per session" },
     ],
   },
   {
     title: "Red Light Therapy",
     services: [
-      { name: "Single Session", price: 40, duration: "20 min" },
-      { name: "5 Session Pack", price: 175, note: "Save $25" },
-      { name: "10 Session Pack", price: 320, note: "Save $80" },
+      { name: "Single", price: 50 },
+      { name: "Intro Pack", price: 120, note: "New clients only; 30-day expiry" },
+      { name: "3 pack", price: 140 },
+      { name: "5 pack", price: 225 },
+      { name: "10 pack", price: 400 },
     ],
   },
   {
-    title: "Compression Therapy",
+    title: "NormaTec Compression Therapy",
     services: [
-      { name: "Normatec Legs", price: 35, duration: "30 min" },
-      { name: "Normatec Full Body", price: 50, duration: "30 min" },
-      { name: "5 Session Pack (Legs)", price: 150, note: "Save $25" },
+      { name: "30 min – Single", price: 35, duration: "30 min" },
+      { name: "30 min – Intro / 3 / 5 / 10 pack", price: 0, note: "Intro $70, 3 pack $95, 5 pack $150, 10 pack $280" },
+      { name: "60 min – Single", price: 50, duration: "60 min" },
+      { name: "60 min – Intro / 3 / 5 / 10 pack", price: 0, note: "Intro $100, 3 pack $140, 5 pack $220, 10 pack $360" },
+      { name: "Extra guest (30 min / 60 min)", price: 0, note: "$30 / $45" },
+    ],
+  },
+  {
+    title: "Cryotherapy",
+    services: [
+      { name: "Single", price: 95 },
+      { name: "Two people", price: 160, note: "Total" },
+      { name: "Three people", price: 225, note: "Total" },
+      { name: "Four people", price: 280, note: "Total" },
+      { name: "Five people", price: 325, note: "Total" },
+      { name: "Intro Pack", price: 170, note: "New clients; 30-day expiry" },
+      { name: "3 pack", price: 225 },
+      { name: "5 pack", price: 350 },
+      { name: "10 pack", price: 670 },
+    ],
+  },
+  {
+    title: "Lymphatic Drainage",
+    services: [
+      { name: "Lymphatic Relief", price: 120, duration: "45 min" },
+      { name: "No Flow No Glow", price: 240, duration: "90 min" },
+      { name: "Lymphatic Drainage Massage", price: 150, duration: "60 min" },
+      { name: "Post-Op Lymphatic Drainage", price: 170, duration: "75 min" },
+      { name: "Pregnancy Lymph Drainage", price: 150, duration: "60 min" },
+      { name: "Quantic Lymphatic Drainage", price: 190, duration: "60 min" },
+      { name: "Dry Brushing Lymphatic Bliss", price: 200, duration: "75 min" },
+      { name: "Lymphatic Facial", price: 60, duration: "30 min" },
     ],
   },
   {
     title: "Massage & Treatments",
     services: [
-      { name: "Lymphatic Drainage", price: 95, duration: "60 min" },
-      { name: "Remedial Massage", price: 70, duration: "30 min" },
-      { name: "Remedial Massage", price: 100, duration: "60 min" },
-      { name: "Facial Treatment", price: 85, duration: "45 min" },
+      { name: "Me Time Massage", price: 130, duration: "1 hr" },
+      { name: "Brazilian Sculpt Massage", price: 190, duration: "1 hr" },
+      { name: "Chinese Foot Massage (Reflexology)", price: 110, duration: "40 min" },
+    ],
+  },
+  {
+    title: "Facials",
+    services: [
+      { name: "Me Time Facial", price: 120, duration: "45 min" },
+      { name: "Glow Me Time Facial", price: 160, duration: "45 min + 15 min collagen bed" },
+      { name: "Deep Cleansing", price: 240, duration: "90 min" },
+      { name: "Glow Deep Cleansing", price: 280, duration: "90 min + 15 min collagen bed" },
+      { name: "Microneedling Face, Neck & Décolleté", price: 360, duration: "60 min + red light" },
     ],
   },
 ];
 
 const packages = [
   {
-    name: "Recovery Package",
-    description: "Perfect for athletes and active individuals",
-    price: 120,
-    includes: ["Cryotherapy Session", "Normatec Compression", "Red Light Therapy"],
+    name: "Contrast Therapy",
+    description: "Cryo + sauna + cold shower",
+    price: 99,
+    priceTwo: 160,
+    includes: ["Cryotherapy", "Infrared Sauna", "Cold shower"],
     popular: false,
   },
   {
-    name: "Wellness Package",
-    description: "Our most popular combination",
-    price: 130,
-    includes: ["Infrared Sauna (30 min)", "Salt Room Session", "Red Light Therapy"],
+    name: "Re-Energise Combo",
+    description: "Cryo + sauna + salt room",
+    price: 139,
+    priceTwo: 230,
+    includes: ["Cryotherapy", "Infrared Sauna", "Salt Room Halotherapy"],
     popular: true,
   },
   {
-    name: "Ultimate Package",
-    description: "The complete Cryospa experience",
-    price: 180,
-    includes: ["Cryotherapy Session", "Infrared Sauna (30 min)", "Salt Room Session", "Normatec Compression"],
+    name: "Revitalise Combo",
+    description: "Cryo + sauna + Normatec",
+    price: 139,
+    priceTwo: 230,
+    includes: ["Cryotherapy", "Infrared Sauna", "Normatec Compression"],
+    popular: false,
+  },
+  {
+    name: "Rejuvinate Combo",
+    description: "Cryo + sauna",
+    price: 99,
+    priceTwo: 160,
+    includes: ["Cryotherapy", "Infrared Sauna"],
     popular: false,
   },
 ];
@@ -121,11 +170,11 @@ export default function PricingPage() {
       <section className="section bg-white">
         <div className="container-custom">
           <SectionHeading
-            title="Popular Packages"
+            title="Combination Treatments"
             subtitle="Get more value with our curated treatment combinations"
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-6xl mx-auto">
             {packages.map((pkg, index) => (
               <motion.div
                 key={pkg.name}
@@ -171,6 +220,14 @@ export default function PricingPage() {
                       )}>
                         ${pkg.price}
                       </span>
+                      {"priceTwo" in pkg && pkg.priceTwo != null && (
+                        <span className={cn(
+                          "block text-lg font-medium mt-1",
+                          pkg.popular ? "text-white/90" : "text-muted-foreground"
+                        )}>
+                          2 persons ${pkg.priceTwo}
+                        </span>
+                      )}
                     </div>
 
                     <ul className="space-y-3 mb-8">
@@ -233,7 +290,7 @@ export default function PricingPage() {
                   </CardHeader>
                   <CardContent className="space-y-3">
                     {category.services.map((service) => (
-                      <div key={`${service.name}-${service.price}`} className="flex items-center justify-between">
+                      <div key={`${service.name}-${service.price}-${service.duration}`} className="flex items-center justify-between">
                         <div>
                           <span className="text-slate-700">{service.name}</span>
                           {service.duration && (
@@ -248,7 +305,7 @@ export default function PricingPage() {
                           )}
                         </div>
                         <span className="font-semibold text-slate-800">
-                          ${service.price}
+                          {service.price > 0 ? `$${service.price}` : service.note ?? "—"}
                         </span>
                       </div>
                     ))}
@@ -276,9 +333,12 @@ export default function PricingPage() {
             >
               Ready to Book?
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-lg text-muted-foreground mb-4">
               All treatments can be booked online. First time? Contact us for a
               complimentary consultation to find the best treatment for you.
+            </p>
+            <p className="text-sm text-muted-foreground mb-8">
+              A 15% surcharge applies for services on holidays and weekends. All memberships and pack purchases are non-transferable.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg">

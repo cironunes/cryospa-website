@@ -8,9 +8,12 @@
     "start": "next start",
     "lint": "eslint",
     "seed": "npx tsx src/seed/index.ts",
+    "migrate:blog": "npx tsx src/scripts/migrate-blog-posts.ts",
+    "reset:db": "node -e \"const fs=require('fs'); const p='payload.db'; if(fs.existsSync(p)){ fs.copyFileSync(p,p+'.bak'); fs.unlinkSync(p); console.log('Backed up and removed payload.db'); } else { console.log('No payload.db found'); }\"",
     "generate:types": "payload generate:types"
   },
   "dependencies": {
+    "cheerio": "^1.2.0",
     "@hookform/resolvers": "^5.2.2",
     "@payloadcms/db-sqlite": "^3.72.0",
     "@payloadcms/next": "^3.72.0",
@@ -48,6 +51,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.4",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }

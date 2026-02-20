@@ -23,7 +23,7 @@ export const Homepage: GlobalConfig = {
         {
           name: 'description',
           type: 'textarea',
-          defaultValue: 'Experience the ultimate in wellness treatments. From whole-body cryotherapy to infrared saunas, discover how Cryospa can transform your health and wellbeing.',
+          defaultValue: 'Experience the ultimate in wellness treatments. From infrared saunas to salt room therapy, discover how Cryospa can transform your health and wellbeing.',
         },
         {
           name: 'backgroundImage',

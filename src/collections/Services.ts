@@ -26,7 +26,6 @@ export const Services: CollectionConfig = {
       type: 'select',
       required: true,
       options: [
-        { label: 'Cryotherapy', value: 'cryotherapy' },
         { label: 'Sauna', value: 'sauna' },
         { label: 'Salt Therapy', value: 'salt-therapy' },
         { label: 'Compression', value: 'compression' },

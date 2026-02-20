@@ -30,12 +30,11 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
-    
-    // Simulate form submission
+
     await new Promise((resolve) => setTimeout(resolve, 1500));
     setStatus("success");
     setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
-    
+
     toast({
       title: "Message sent!",
       description: "Thank you for reaching out. We'll get back to you within 24 hours.",
@@ -45,8 +44,8 @@ export default function ContactPage() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-gradient-to-br from-slate-50 via-primary/5 to-accent/5">
+      {/* Hero */}
+      <section className="relative pt-32 pb-20 bg-linear-to-br from-slate-50 via-primary/5 to-accent/5">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -71,11 +70,11 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Content */}
+      {/* Contact content: two columns */}
       <section className="section bg-white">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Info */}
+            {/* Left: contact info */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -89,7 +88,7 @@ export default function ContactPage() {
               <div className="space-y-6 mb-10">
                 <Card className="border-slate-100">
                   <CardContent className="flex gap-4 p-4">
-                    <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                    <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                       <MapPin className="size-6" />
                     </div>
                     <div>
@@ -104,7 +103,7 @@ export default function ContactPage() {
 
                 <Card className="border-slate-100">
                   <CardContent className="flex gap-4 p-4">
-                    <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                    <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                       <Phone className="size-6" />
                     </div>
                     <div>
@@ -118,7 +117,7 @@ export default function ContactPage() {
 
                 <Card className="border-slate-100">
                   <CardContent className="flex gap-4 p-4">
-                    <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                    <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                       <Mail className="size-6" />
                     </div>
                     <div>
@@ -131,7 +130,6 @@ export default function ContactPage() {
                 </Card>
               </div>
 
-              {/* Opening Hours */}
               <Card className="bg-slate-50 border-0">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-3 mb-4">
@@ -149,13 +147,12 @@ export default function ContactPage() {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Sunday</span>
-                      <span className="text-slate-800 font-medium">8am – 6pm</span>
+                      <span className="text-slate-800 font-medium">8am – 3pm</span>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Map */}
               <div className="mt-10 aspect-video rounded-2xl overflow-hidden bg-slate-200">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3314.5!2d151.2!3d-33.83!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDQ5JzQ4LjAiUyAxNTHCsDEyJzAwLjAiRQ!5e0!3m2!1sen!2sau!4v1234567890"
@@ -170,7 +167,7 @@ export default function ContactPage() {
               </div>
             </motion.div>
 
-            {/* Contact Form */}
+            {/* Right: form */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}

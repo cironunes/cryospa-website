@@ -25,19 +25,6 @@ async function seed() {
   // Seed Services
   const services = [
     {
-      title: "Whole Body Cryotherapy",
-      slug: "cryotherapy",
-      category: "cryotherapy",
-      shortDescription:
-        "A revolutionary 3-minute treatment that exposes your body to ultra-cold temperatures, triggering powerful healing and recovery responses.",
-      duration: "3 minutes",
-      price: 65,
-      priceNote: "per session",
-      icon: "snowflake",
-      featured: true,
-      order: 1,
-    },
-    {
       title: "Infrared Sauna",
       slug: "infrared-sauna",
       category: "sauna",
@@ -92,7 +79,7 @@ async function seed() {
     {
       title: "Contrast Therapy",
       slug: "contrast-therapy",
-      category: "cryotherapy",
+      category: "sauna",
       shortDescription:
         "Alternate between hot and cold treatments to stimulate blood flow, reduce inflammation, and accelerate recovery.",
       duration: "30 minutes",
@@ -174,7 +161,7 @@ async function seed() {
     {
       customerName: "Lara Nercessian",
       content:
-        "I had a really positive experience at Cryospa Clinics. The customer service, facilities and services were wonderful. I used the infrared sauna and will most certainly be back to try cryotherapy.",
+        "I had a really positive experience at Cryospa Clinics. The customer service, facilities and services were wonderful. I used the infrared sauna and will most certainly be back to try more treatments.",
       rating: 5,
       featured: true,
     },
@@ -188,14 +175,14 @@ async function seed() {
     {
       customerName: "Inez Bye",
       content:
-        "Had a cryo, infrared sauna and salt room treatments and enjoyed every minute on a chilly Saturday afternoon. Left the clinic feeling more relaxed in all my sore muscles and have been sleeping like a baby!",
+        "Had infrared sauna and salt room treatments and enjoyed every minute on a chilly Saturday afternoon. Left the clinic feeling more relaxed in all my sore muscles and have been sleeping like a baby!",
       rating: 5,
       featured: false,
     },
     {
       customerName: "Tamara Gabriel",
       content:
-        "Absolutely blown away by the level of service and positive energy in this practice. I attended Cryospa for a few treatments. Cryo sauna, infrared sauna and the salt room. I was blown away by each experience.",
+        "Absolutely blown away by the level of service and positive energy in this practice. I attended Cryospa for a few treatments. Infrared sauna and the salt room. I was blown away by each experience.",
       rating: 5,
       featured: false,
     },

@@ -22,7 +22,6 @@ import {
 import { cn } from "@/lib/utils";
 
 const services = [
-  { label: "Cryotherapy", href: "/services/cryotherapy", description: "Whole body cold therapy for recovery" },
   { label: "Infrared Sauna", href: "/services/infrared-sauna", description: "Deep heat therapy for relaxation" },
   { label: "Himalayan Salt Room", href: "/services/salt-room", description: "Respiratory and skin benefits" },
   { label: "Red Light Therapy", href: "/services/red-light-therapy", description: "Cellular rejuvenation" },
@@ -178,8 +177,11 @@ export function Header() {
                   <Menu className="size-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-full sm:w-[400px] overflow-y-auto">
-                <SheetHeader>
+              <SheetContent
+                side="right"
+                className="w-full sm:w-[400px] flex flex-col p-0 overflow-hidden"
+              >
+                <SheetHeader className="px-6 pt-6 pb-4 shrink-0">
                   <SheetTitle className="text-left">
                     <span
                       className="text-2xl font-serif tracking-wider text-slate-800"
@@ -190,53 +192,68 @@ export function Header() {
                   </SheetTitle>
                 </SheetHeader>
 
-                <div className="mt-8 flex flex-col gap-1">
-                  <Link
-                    href="/"
-                    className="block py-3 px-3 text-lg font-medium text-slate-800 hover:text-primary hover:bg-gradient-to-r hover:from-primary/5 hover:to-transparent rounded-xl transition-all duration-200"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Home
-                  </Link>
-
-                  <div className="py-3">
-                    <span className="px-3 text-xs font-bold text-slate-400 uppercase tracking-wider">
-                      Services
-                    </span>
-                    <div className="mt-3 ml-3 pl-4 border-l-2 border-gradient-to-b from-primary/30 to-accent/30 space-y-1">
-                      {services.map((service) => (
-                        <Link
-                          key={service.href}
-                          href={service.href}
-                          className="block py-2 px-2 text-slate-600 hover:text-primary hover:bg-primary/5 rounded-lg transition-all duration-200"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          {service.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-
-                  {navItems.slice(1).map((item) => (
+                <div className="flex-1 overflow-y-auto px-6 pb-4">
+                  <div className="flex flex-col gap-1">
                     <Link
-                      key={item.href}
-                      href={item.href}
-                      className="block py-3 px-3 text-lg font-medium text-slate-800 hover:text-primary hover:bg-gradient-to-r hover:from-primary/5 hover:to-transparent rounded-xl transition-all duration-200"
+                      href="/"
+                      className="block py-3 px-3 text-lg font-medium text-slate-800 hover:text-primary hover:bg-linear-to-r hover:from-primary/5 hover:to-transparent rounded-xl transition-all duration-200"
                       onClick={() => setIsOpen(false)}
                     >
-                      {item.label}
+                      Home
                     </Link>
-                  ))}
+
+                    <div className="py-3">
+                      <span className="px-3 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Services
+                      </span>
+                      <div className="mt-3 ml-3 pl-4 border-l-2 border-gradient-to-b from-primary/30 to-accent/30 space-y-1">
+                        {services.map((service) => (
+                          <Link
+                            key={service.href}
+                            href={service.href}
+                            className="block py-2 px-2 text-slate-600 hover:text-primary hover:bg-primary/5 rounded-lg transition-all duration-200"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            {service.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+
+                    {navItems.slice(1).map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="block py-3 px-3 text-lg font-medium text-slate-800 hover:text-primary hover:bg-linear-to-r hover:from-primary/5 hover:to-transparent rounded-xl transition-all duration-200"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-slate-100">
-                  <Button asChild className="w-full shadow-lg" size="lg">
+                <div className="shrink-0 border-t border-slate-100 bg-white px-6 py-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))]">
+                  <Button
+                    asChild
+                    size="lg"
+                    className={cn(
+                      "w-full rounded-xl py-5 text-base font-semibold",
+                      "bg-linear-to-r from-teal-600 via-teal-500 to-teal-600",
+                      "text-white shadow-lg shadow-teal-500/30",
+                      "hover:bg-linear-to-r hover:from-teal-500 hover:via-teal-400 hover:to-teal-500",
+                      "hover:shadow-xl hover:shadow-teal-500/35 active:scale-[0.98]",
+                      "transition-all duration-200"
+                    )}
+                  >
                     <Link
                       href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setIsOpen(false)}
+                      className="inline-flex items-center justify-center gap-2"
                     >
+                      <Sparkles className="size-5" aria-hidden />
                       Book Now
                     </Link>
                   </Button>
