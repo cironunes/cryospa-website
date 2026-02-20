@@ -381,97 +381,225 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="sticky top-32"
+                className="sticky top-32 space-y-6"
               >
-                <div className="bg-slate-50 rounded-2xl p-6 lg:p-8">
-                  <h3 className="text-lg font-semibold text-slate-800 mb-6">
-                    Book This Treatment
-                  </h3>
-
-                  <div className="space-y-4 mb-6">
-                    <div className="flex justify-between items-center pb-4 border-b border-slate-200">
-                      <span className="text-slate-600">Duration</span>
-                      <span className="font-medium text-slate-800">
-                        {service.duration}
-                      </span>
+                {/* Main Booking Card */}
+                <div className="bg-gradient-to-br from-slate-50 to-white rounded-2xl p-6 lg:p-8 border border-slate-200 shadow-sm">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-slate-800">
+                      Book This Treatment
+                    </h3>
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                      <svg
+                        className="w-5 h-5 text-primary"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-slate-600">Price</span>
-                      <div className="text-right">
-                        <span className="text-2xl font-bold text-primary">
-                          ${service.price}
-                        </span>
-                        <span className="text-sm text-slate-500 ml-1">
-                          {service.priceNote}
-                        </span>
+                  </div>
+
+                  {/* Price & Duration Info */}
+                  <div className="space-y-4 mb-8">
+                    <div className="flex items-center justify-between p-4 bg-white rounded-xl border border-slate-200">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                          <svg
+                            className="w-5 h-5 text-primary"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-xs text-slate-500 font-medium">Duration</p>
+                          <p className="text-slate-800 font-semibold">{service.duration}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between p-4 bg-white rounded-xl border border-slate-200">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                          <svg
+                            className="w-5 h-5 text-primary"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-xs text-slate-500 font-medium">Price</p>
+                          <div className="flex items-baseline gap-1">
+                            <span className="text-2xl font-bold text-primary">
+                              ${service.price}
+                            </span>
+                            <span className="text-sm text-slate-500">
+                              {service.priceNote}
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <Link
-                    href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-primary w-full mb-4"
-                  >
-                    Book Now
-                  </Link>
+                  {/* Action Buttons */}
+                  <div className="space-y-3">
+                    <Link
+                      href="https://www.fresha.com/a/cryospa-clinics-crows-nest-21-falcon-street-jkjitqzk/booking?menu=true"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative w-full inline-flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:bg-primary-dark hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-0.5"
+                    >
+                      <span className="relative z-10">Book Now</span>
+                      <svg
+                        className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary-dark to-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </Link>
 
-                  <Link
-                    href="/contact"
-                    className="btn btn-secondary w-full"
-                  >
-                    Ask a Question
-                  </Link>
+                    <Link
+                      href="/contact"
+                      className="group w-full inline-flex items-center justify-center gap-2 px-6 py-4 bg-white border-2 border-slate-200 text-slate-700 font-semibold rounded-xl transition-all duration-300 hover:border-primary hover:bg-primary/5 hover:text-primary hover:shadow-md hover:-translate-y-0.5"
+                    >
+                      <svg
+                        className="w-5 h-5 group-hover:scale-110 transition-transform"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      <span>Ask a Question</span>
+                    </Link>
+                  </div>
 
-                  <p className="text-xs text-slate-500 mt-4 text-center">
-                    Free cancellation up to 24 hours before your appointment
-                  </p>
+                  {/* Trust Indicators */}
+                  <div className="mt-6 pt-6 border-t border-slate-200">
+                    <div className="flex items-start gap-3 text-sm">
+                      <svg
+                        className="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <div>
+                        <p className="text-slate-700 font-medium">
+                          Flexible Cancellation
+                        </p>
+                        <p className="text-slate-500 text-xs mt-1">
+                          Free cancellation up to 24 hours before your appointment
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Contact Info */}
-                <div className="mt-6 p-6 bg-white border border-slate-200 rounded-2xl">
-                  <h4 className="font-medium text-slate-800 mb-4">
-                    Need Help?
-                  </h4>
+                {/* Contact Info Card */}
+                <div className="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm">
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                      <svg
+                        className="w-5 h-5 text-accent"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
+                        />
+                      </svg>
+                    </div>
+                    <h4 className="font-semibold text-slate-800">Need Assistance?</h4>
+                  </div>
                   <div className="space-y-3">
                     <a
                       href="tel:0289647951"
-                      className="flex items-center gap-3 text-slate-600 hover:text-primary transition-colors"
+                      className="group flex items-center gap-3 p-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-primary transition-all"
                     >
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={1.5}
-                          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                        />
-                      </svg>
-                      02 8964 7951
+                      <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <svg
+                          className="w-4 h-4 text-primary"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-xs text-slate-500 font-medium">Call us</p>
+                        <p className="font-semibold">02 8964 7951</p>
+                      </div>
                     </a>
                     <a
                       href="mailto:info@cryospaclinics.com"
-                      className="flex items-center gap-3 text-slate-600 hover:text-primary transition-colors"
+                      className="group flex items-center gap-3 p-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-primary transition-all"
                     >
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={1.5}
-                          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                        />
-                      </svg>
-                      info@cryospaclinics.com
+                      <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <svg
+                          className="w-4 h-4 text-primary"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-xs text-slate-500 font-medium">Email us</p>
+                        <p className="font-semibold text-sm">info@cryospaclinics.com</p>
+                      </div>
                     </a>
                   </div>
                 </div>

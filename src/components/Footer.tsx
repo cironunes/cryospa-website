@@ -22,7 +22,7 @@ const quickLinks = [
 // Reusable footer link component with hover animation
 function FooterLink({ href, children, external = false }: { href: string; children: React.ReactNode; external?: boolean }) {
   const linkClasses = "group relative text-sm text-slate-200 hover:text-primary-light transition-colors duration-200 inline-flex items-center gap-1";
-  
+
   if (external) {
     return (
       <a
@@ -38,7 +38,7 @@ function FooterLink({ href, children, external = false }: { href: string; childr
       </a>
     );
   }
-  
+
   return (
     <Link href={href} className={linkClasses}>
       <span className="relative">
@@ -81,7 +81,7 @@ export function Footer() {
     <footer className="relative bg-gradient-dark text-slate-200">
       {/* Decorative Top Border - Gradient Accent Line */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-primary via-primary-light to-accent" />
-      
+
       {/* Main Footer Content */}
       <div className="container-custom pt-20 pb-20 md:pt-28 md:pb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-14 lg:gap-16">
@@ -104,7 +104,7 @@ export function Footer() {
               Sydney&apos;s most complete destination to reboot, revitalise and
               re-energise your mind, body, and soul.
             </p>
-            
+
             {/* Social Media Icons */}
             <div className="flex gap-3">
               <SocialButton href="https://facebook.com/cryospaclinics" label="Facebook">
