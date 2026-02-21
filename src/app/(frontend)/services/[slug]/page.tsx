@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { use } from "react";
 import { getServiceIcon } from "@/components/Icons";
 import { Button } from "@/components/ui/button";
@@ -48,6 +49,7 @@ const servicesData: Record<string, {
     price: 45,
     priceNote: "per session",
     icon: "fire",
+    image: "https://cryospaclinics.com.au/wp-content/uploads/2022/02/IMG_4486.jpg",
   },
   "salt-room": {
     title: "Himalayan Salt Room",
@@ -73,6 +75,7 @@ const servicesData: Record<string, {
     price: 35,
     priceNote: "per session",
     icon: "salt",
+    image: "https://cryospaclinics.com.au/wp-content/uploads/2022/02/salt-room-image-for-wesbite-1-1.jpg",
   },
   "red-light-therapy": {
     title: "Red Light Therapy",
@@ -98,6 +101,7 @@ const servicesData: Record<string, {
     price: 40,
     priceNote: "per session",
     icon: "light",
+    image: "https://cryospaclinics.com.au/wp-content/uploads/2021/06/Untitled-design-2.png",
   },
   "normatec-compression": {
     title: "Normatec Compression Therapy",
@@ -123,6 +127,7 @@ const servicesData: Record<string, {
     price: 35,
     priceNote: "per session",
     icon: "compression",
+    image: "https://cryospaclinics.com.au/wp-content/uploads/2022/02/normatec-header-image-1-1.jpg",
   },
   "contrast-therapy": {
     title: "Contrast Therapy",
@@ -148,6 +153,7 @@ const servicesData: Record<string, {
     price: 75,
     priceNote: "per session",
     icon: "contrast",
+    image: "https://cryospaclinics.com.au/wp-content/uploads/2019/01/1249000653.jpg",
   },
   "lymphatic-drainage": {
     title: "Lymphatic Drainage Massage",
@@ -173,6 +179,7 @@ const servicesData: Record<string, {
     price: 120,
     priceNote: "from",
     icon: "lymphatic",
+    image: "https://cryospaclinics.com.au/wp-content/uploads/2023/01/lymphatic-massage-header-image-.png",
     warningMessage:
       "It is not recommended to have a lymphatic drainage session if you're experiencing any fever, cold or flu symptoms, acute inflammations and infections (e.g. a UTI), active cancer that is not being treated, thrombosis, or heart, kidneys and liver dysfunction or failure. The same applies to any other major health concerns that are not stabilised and/or currently under treatment. Please ask for medical clearance with your health practitioner where advised (e.g. pregnancy, post-op).",
     treatments: [
@@ -243,6 +250,7 @@ const servicesData: Record<string, {
     price: 70,
     priceNote: "from",
     icon: "hands",
+    image: "https://cryospaclinics.com.au/wp-content/uploads/2024/08/CRYOSPA-2.png",
     treatments: [
       {
         name: "Me Time Massage",
@@ -287,6 +295,7 @@ const servicesData: Record<string, {
     price: 85,
     priceNote: "from",
     icon: "face",
+    image: "https://cryospaclinics.com.au/wp-content/uploads/2024/08/CRYOSPA-3.png",
     treatments: [
       {
         name: "Me Time Facial",
@@ -400,6 +409,16 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
               >
+                {service.image && (
+                  <div className="relative h-[400px] mb-10 rounded-2xl overflow-hidden shadow-sm border border-slate-100">
+                    <Image 
+                      src={service.image} 
+                      alt={service.title} 
+                      fill 
+                      className="object-cover"
+                    />
+                  </div>
+                )}
                 <h2 className="text-2xl font-semibold text-slate-800 mb-6">
                   About This Treatment
                 </h2>
